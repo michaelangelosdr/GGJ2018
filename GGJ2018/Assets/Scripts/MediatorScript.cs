@@ -69,7 +69,7 @@ public class MediatorScript : MonoBehaviour {
 
 	void ParseData() {
 
-		string[] commandSplit = command.Split ();
+		string[] commandSplit = command.Split (null);
 
 		string action = commandSplit [0];
 
