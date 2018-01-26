@@ -29,6 +29,8 @@ public class MediatorScript : MonoBehaviour {
 
 		ComputeBandwidth ();
 		HandleKeyInput ();
+
+		Debug.Log (teamA.Patience_Value + ":" + teamB.Patience_Value + ":" + teamC.Patience_Value);
 	}
 
 	void ComputeBandwidth() {
@@ -54,7 +56,7 @@ public class MediatorScript : MonoBehaviour {
 					command =command.Substring(0, command.Length - 1);
 				}
 
-				Debug.Log (command);
+//				Debug.Log (command);
 			} else if ((c == '\n') || (c == '\r')) {
 
 				//Debug.Log ("Command: " + command);
@@ -112,7 +114,10 @@ public class MediatorScript : MonoBehaviour {
 		} else {
 
 			Debug.Log ("INVALID COMMAND");
+			return;
 		}
+
+		ShowBandwidthValues ();
 	}
 
 	void SetReceiverTeam(string receiver) {
@@ -162,9 +167,11 @@ public class MediatorScript : MonoBehaviour {
 	}
 
 	void Route() {
-
-
+		
 		Debug.Log ("ROUTE");
+
+		receiverTeam.bandwidth += secondaryReceiverTeam.bandwidth;
+		secondaryReceiverTeam.bandwidth = 0;
 	}
 
 	void Maximum() {
@@ -190,5 +197,12 @@ public class MediatorScript : MonoBehaviour {
 	void Restart() {
 		
 		Debug.Log ("RESTARTING");
+	}
+
+	void ShowBandwidthValues() {
+
+		Debug.Log ("Team A: " + teamA.bandwidth);
+		Debug.Log ("Team B: " + teamB.bandwidth);
+		Debug.Log ("Team C: " + teamC.bandwidth);
 	}
 }
