@@ -13,16 +13,28 @@ public class MediatorScript : MonoBehaviour {
 
 	[SerializeField] ConsoleScript consoleScript;
 
+	public float baseTime;
+	float timeLeft;
 	float bandwidth;
+	float score;
 
 	string command;
 
 	void Awake() {
 
+		timeLeft = baseTime;
+		score = 0;
+
 		command = "";
 		bandwidth = 2.0f;
 
+		teamA.bandwidth = 1;
+		teamB.bandwidth = 0.5f;
+		teamC.bandwidth = 0.5f;
+
 		Debug.Log ("Console Initialized");
+
+		StartCoroutine (StartGame ());
 	}
 
 	void Update () {
@@ -30,7 +42,7 @@ public class MediatorScript : MonoBehaviour {
 		ComputeBandwidth ();
 		HandleKeyInput ();
 
-		Debug.Log (teamA.Patience_Value + ":" + teamB.Patience_Value + ":" + teamC.Patience_Value);
+//		Debug.Log (teamA.Patience_Value + ":" + teamB.Patience_Value + ":" + teamC.Patience_Value);
 	}
 
 	void ComputeBandwidth() {
@@ -204,5 +216,29 @@ public class MediatorScript : MonoBehaviour {
 		Debug.Log ("Team A: " + teamA.bandwidth);
 		Debug.Log ("Team B: " + teamB.bandwidth);
 		Debug.Log ("Team C: " + teamC.bandwidth);
+	}
+
+	IEnumerator StartGame() {
+
+		while (timeLeft > 0) {
+			
+			yield return new WaitForSeconds (1);
+
+			timeLeft--;
+
+			AddScore ();
+		}
+
+		Debug.Log ("TIME'S UP!!");
+
+	}
+
+	void AddScore() {
+
+		score += teamA.Patience_Value / 100.0f;
+		score += teamB.Patience_Value / 100.0f;
+		score += teamC.Patience_Value / 100.0f;
+
+		Debug.Log ("Score: " + score);
 	}
 }
