@@ -27,7 +27,13 @@ public class MediatorScript : MonoBehaviour {
 
 	void Update () {
 
+		ComputeBandwidth ();
 		HandleKeyInput ();
+	}
+
+	void ComputeBandwidth() {
+
+		bandwidth = 2 - teamA.bandwidth - teamB.bandwidth - teamC.bandwidth;
 	}
 
 	void HandleKeyInput() {
@@ -162,13 +168,23 @@ public class MediatorScript : MonoBehaviour {
 	}
 
 	void Maximum() {
-		
-		Debug.Log ("MAXIMUM");
+
+		teamA.bandwidth = 0;
+		teamB.bandwidth = 0;
+		teamC.bandwidth = 0;
+
+		receiverTeam.bandwidth = 2;
 	}
 
 	void Optimize() {
 		
 		Debug.Log ("OPTIMIZE");
+
+		teamA.bandwidth = 0.5f;
+		teamB.bandwidth = 0.5f;
+		teamC.bandwidth = 0.5f;
+
+		receiverTeam.bandwidth = 1;
 	}
 
 	void Restart() {
