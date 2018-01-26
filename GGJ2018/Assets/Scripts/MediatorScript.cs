@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MediatorScript : MonoBehaviour {
 
+	//Make List
 	[SerializeField] TeamScript teamA;
 	[SerializeField] TeamScript teamB;
 	[SerializeField] TeamScript teamC;
@@ -50,12 +51,12 @@ public class MediatorScript : MonoBehaviour {
 				Debug.Log (command);
 			} else if ((c == '\n') || (c == '\r')) {
 
-				Debug.Log ("Command: " + command);
+				//Debug.Log ("Command: " + command);
 				ProcessCommand ();
 			} else {
 
 				command += c;
-				Debug.Log (command);
+				//Debug.Log (command);
 			}
 		}
 	}
@@ -155,6 +156,7 @@ public class MediatorScript : MonoBehaviour {
 	}
 
 	void Route() {
+
 
 		Debug.Log ("ROUTE");
 	}
