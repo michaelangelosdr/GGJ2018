@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class ConsoleScript : MonoBehaviour {
 	
-	[SerializeField] Text consoleUI;
+	Text consoleUI;
+
+	void Awake() {
+
+		consoleUI = GetComponent<Text> ();
+	}
 
 	public string GetText() {
 
