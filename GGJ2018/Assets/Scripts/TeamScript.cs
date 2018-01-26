@@ -5,28 +5,23 @@ using UnityEngine.UI;
 
 public class TeamScript : MonoBehaviour {
 
-	public float Patience_Value;
-	public string JammerName;
+	public float Patience_Value = 100;
 	public float Patience_Multiplier;
 	public float time_sec;
 	public Teamstate CurrentState;
 
-	[SerializeField] Text Textt;
+	public static float StateChangeTime = 1;
 
-	public TeamScript()
-	{
-		Patience_Value = 100.0f;
-		JammerName = "Default_Jammer";
-		CurrentState = Teamstate.WORKING_STATE;
+	void Awake() {
+
+
+		StartCoroutine (ChangingStates ());
 	}
-		
 
 	public void SetBandwith(float bandwith)
 	{
-		Debug.Log ("Bandwith of " + JammerName + " Is now: " + bandwith);
+//		Debug.Log ("Bandwith of " + this.name + " Is now: " + bandwith);
 	}
-
-
 
 	void Update()
 	{
@@ -50,32 +45,47 @@ public class TeamScript : MonoBehaviour {
 			Patience_Multiplier = 1.0f;
 			break;
 		}
-		Debug.Log (JammerName + " is currently: " + curState);
+//		Debug.Log (this.name + " is currently: " + curState);
 		Be_Impatient ();
 	}
-
-
 
 	private void Be_Impatient()
 	{
 		//For now this would be a constant rate
 		Patience_Value -= Patience_Multiplier;
-		Textt.text = Patience_Value.ToString ();
 	}
-
 
 	public void Patience_Depleted()
 	{
-		Debug.Log ("Zero Patience of : " + JammerName + " GAME OVER");
+//		Debug.Log ("Zero Patience of : " + this.name + " GAME OVER");
+	}
+		
+	IEnumerator ChangingStates() {
+
+		while (true) {
+		
+			Debug.Log (this.name + ": " + CurrentState.ToString ());
+
+			int rand = Random.Range (0, 4);
+
+//			Debug.Log ("Chosen Random: " + rand);
+
+			foreach (Teamstate t in System.Enum.GetValues(typeof(Teamstate))) {
+			
+				if (rand == (int)t)
+					CurrentState = t;
+			}
+
+			yield return new WaitForSeconds (StateChangeTime);
+		}
 	}
 
-		
 }
 public enum Teamstate
 {
-	WORKING_STATE,
-	GAMING_STATE,
-	UPLOADING_STATE,
-	WATCHINGCORN_STATE
+	WORKING_STATE = 0,
+	GAMING_STATE = 1,
+	UPLOADING_STATE = 2,
+	WATCHINGCORN_STATE = 3,
 }
 
