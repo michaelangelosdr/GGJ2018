@@ -6,14 +6,21 @@ using UnityEngine.UI;
 public class TeamScript : MonoBehaviour {
 
 	public float Patience_Value = 100;
+	public float patienceBaseDecrease = 10;
 	public float Patience_Multiplier;
 	public float time_sec;
-	public float Patience_Increase = 0.2f;
 	public Teamstate CurrentState;
 
 	public static float StateChangeTime = 1;
 
 	public float bandwidth;
+
+	public Transform meterFillContainer;
+
+	public TextMesh textMesh;
+	public TextMesh nameMesh;
+
+	public SpriteRenderer fillSR;
 
 	void Awake() {
 
@@ -40,19 +47,37 @@ public class TeamScript : MonoBehaviour {
 			Run_State (CurrentState);
 		else
 			Patience_Depleted ();
+
+		UpdateMeter ();
+
+		textMesh.text = CurrentState.ToString ();
+		nameMesh.text = this.name;
+	}
+
+	void UpdateMeter() {
+		
+		if(meterFillContainer)
+			meterFillContainer.localScale = new Vector3 (Patience_Value / 100.0f, 1, 1);
+
+		float multiplier = Patience_Value / 100.0f;
+
+		if (multiplier >= 0.5f)
+			fillSR.color = new Color (1 - (Patience_Value - 50) / 50, 1.0f, 0.0f);
+		else
+			fillSR.color = new Color (1.0f, Patience_Value / 50, 0);
 	}
 
 	public void Run_State(Teamstate curState)
 	{
 		switch (curState) {
-		case Teamstate.WORKING_STATE:
-			Patience_Multiplier = 0.05f;
+		case Teamstate.WORKING:
+			Patience_Multiplier = patienceBaseDecrease * 0.05f;
 			break;
-		case Teamstate.GAMING_STATE:
-			Patience_Multiplier = 0.075f;
+		case Teamstate.GAMING:
+			Patience_Multiplier = patienceBaseDecrease * 0.075f;
 			break;
-		case Teamstate.UPLOADING_STATE:
-			Patience_Multiplier = 0.1f;
+		case Teamstate.UPLOADING:
+			Patience_Multiplier = patienceBaseDecrease * 0.1f;
 			break;
 		}
 //		Debug.Log (this.name + " is currently: " + curState);
@@ -67,7 +92,7 @@ public class TeamScript : MonoBehaviour {
 
 		Patience_Value -= Patience_Multiplier;
 
-		if (CurrentState == Teamstate.WORKING_STATE) {
+		if (CurrentState == Teamstate.WORKING) {
 
 			if (bandwidth == 0.0f) {
 			
@@ -82,7 +107,7 @@ public class TeamScript : MonoBehaviour {
 			
 				Patience_Value += Patience_Multiplier * 1.25f;
 			}
-		} else if (CurrentState == Teamstate.GAMING_STATE) {
+		} else if (CurrentState == Teamstate.GAMING) {
 
 			if (bandwidth == 0.0f) {
 
@@ -97,7 +122,7 @@ public class TeamScript : MonoBehaviour {
 
 				Patience_Value += Patience_Multiplier * 1.125f;
 			}
-		} else if (CurrentState == Teamstate.UPLOADING_STATE) {
+		} else if (CurrentState == Teamstate.UPLOADING) {
 
 			if (bandwidth == 0.0f) {
 
@@ -112,7 +137,7 @@ public class TeamScript : MonoBehaviour {
 
 				Patience_Value += Patience_Multiplier * 1.25f;
 			}
-		} else if (CurrentState == Teamstate.WATCHINGCORN_STATE) {
+		} else if (CurrentState == Teamstate.WATCHING) {
 
 			if (bandwidth == 0.0f) {
 
@@ -158,9 +183,9 @@ public class TeamScript : MonoBehaviour {
 }
 public enum Teamstate
 {
-	WORKING_STATE = 0,
-	GAMING_STATE = 1,
-	UPLOADING_STATE = 2,
-	WATCHINGCORN_STATE = 3,
+	WORKING = 0,
+	GAMING = 1,
+	UPLOADING = 2,
+	WATCHING = 3,
 }
 
