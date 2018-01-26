@@ -12,16 +12,25 @@ public class TeamScript : MonoBehaviour {
 
 	public static float StateChangeTime = 1;
 
+	public float bandwidth;
+
 	void Awake() {
 
 
 		StartCoroutine (ChangingStates ());
 	}
 
-	public void SetBandwith(float bandwith)
-	{
-//		Debug.Log ("Bandwith of " + this.name + " Is now: " + bandwith);
-	}
+//	public void GetBandwith(float givingBandwith)
+//	{
+//		
+//		bandwidth = givingBandwith;
+//	}
+//
+//	public void GiveBandwidth(float getBandwith) 
+//	{
+//
+//		bandwidth += getBandwith;
+//	}
 
 	void Update()
 	{
@@ -64,7 +73,7 @@ public class TeamScript : MonoBehaviour {
 
 		while (true) {
 		
-			Debug.Log (this.name + ": " + CurrentState.ToString ());
+//			Debug.Log (this.name + ": " + CurrentState.ToString ());
 
 			int rand = Random.Range (0, 4);
 
