@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class TeamScript : MonoBehaviour {
 
 	public float Patience_Value = 100;
-	public float patienceBaseDecrease = 10;
+	public float patienceBaseDecrease = 2.5f;
 	public float Patience_Multiplier;
 	public float time_sec;
 	public Teamstate CurrentState;
 
-	public static float StateChangeTime = 1;
+	public static float StateChangeTime = 5;
 
 	public float bandwidth;
 
@@ -51,7 +51,7 @@ public class TeamScript : MonoBehaviour {
 		UpdateMeter ();
 
 		textMesh.text = CurrentState.ToString ();
-		nameMesh.text = this.name;
+		nameMesh.text = this.name + " - " + bandwidth.ToString();
 	}
 
 	void UpdateMeter() {
@@ -74,14 +74,15 @@ public class TeamScript : MonoBehaviour {
 			Patience_Multiplier = patienceBaseDecrease * 0.05f;
 			break;
 		case Teamstate.GAMING:
-			Patience_Multiplier = patienceBaseDecrease * 0.075f;
+			Patience_Multiplier = patienceBaseDecrease * 0.1f;
 			break;
 		case Teamstate.UPLOADING:
-			Patience_Multiplier = patienceBaseDecrease * 0.1f;
+			Patience_Multiplier = patienceBaseDecrease * 0.2f;
 			break;
 		}
 //		Debug.Log (this.name + " is currently: " + curState);
 		Be_Impatient ();
+		IncreasePatience ();
 	}
 
 	private void Be_Impatient()
@@ -91,36 +92,37 @@ public class TeamScript : MonoBehaviour {
 			Patience_Value = 0;
 
 		Patience_Value -= Patience_Multiplier;
+	}
+
+	void IncreasePatience() {
 
 		if (CurrentState == Teamstate.WORKING) {
 
 			if (bandwidth == 0.0f) {
-			
-				Patience_Value += (Patience_Multiplier * 0.5f);
+
 			} else if (bandwidth == 0.5f) {
-			
+
 				Patience_Value += Patience_Multiplier;
 			} else if (bandwidth == 1) {
-			
-				Patience_Value += Patience_Multiplier * 1.125f;
+
+				Patience_Value += Patience_Multiplier * 2;
 			} else if (bandwidth == 2) {
-			
-				Patience_Value += Patience_Multiplier * 1.25f;
+
+				Patience_Value += Patience_Multiplier * 2.5f;
 			}
 		} else if (CurrentState == Teamstate.GAMING) {
 
 			if (bandwidth == 0.0f) {
 
-				Patience_Value += (Patience_Multiplier * 0.25f);
 			} else if (bandwidth == 0.5f) {
 
 				Patience_Value += Patience_Multiplier * 0.5f;
 			} else if (bandwidth == 1) {
 
-				Patience_Value += Patience_Multiplier * 1.0625f;
+				Patience_Value += Patience_Multiplier * 1.5f;
 			} else if (bandwidth == 2) {
 
-				Patience_Value += Patience_Multiplier * 1.125f;
+				Patience_Value += Patience_Multiplier * 2;
 			}
 		} else if (CurrentState == Teamstate.UPLOADING) {
 
@@ -135,7 +137,7 @@ public class TeamScript : MonoBehaviour {
 				Patience_Value += Patience_Multiplier * 1.125f;
 			} else if (bandwidth == 2) {
 
-				Patience_Value += Patience_Multiplier * 1.25f;
+				Patience_Value += Patience_Multiplier * 1.5f;
 			}
 		} else if (CurrentState == Teamstate.WATCHING) {
 
@@ -153,6 +155,9 @@ public class TeamScript : MonoBehaviour {
 				Patience_Value += Patience_Multiplier * 1.5f;
 			}
 		}
+
+		if (Patience_Value > 100)
+			Patience_Value = 100;
 	}
 
 	public void Patience_Depleted()
