@@ -112,7 +112,7 @@ public class MediatorScript : MonoBehaviour {
 
 			if(receiverTeam && secondaryReceiverTeam)
 				Route ();
-		} else if (action.Equals ("maximum")) {
+		} else if (action.Equals ("max")) {
 		
 			if (receiverTeam)
 				Maximum ();
