@@ -81,8 +81,14 @@ public class TeamScript : MonoBehaviour {
 			break;
 		}
 //		Debug.Log (this.name + " is currently: " + curState);
-		Be_Impatient ();
-		IncreasePatience ();
+		//Isnert IfStatement(PowerFailure)
+		//{
+		//}
+		//else
+		//{
+			Be_Impatient ();
+			IncreasePatience ();
+		//}
 	}
 
 	private void Be_Impatient()
@@ -171,7 +177,7 @@ public class TeamScript : MonoBehaviour {
 		
 //			Debug.Log (this.name + ": " + CurrentState.ToString ());
 
-			int rand = Random.Range (0, 3);
+			int rand = Random.Range (0, 4);
 
 //			Debug.Log ("Chosen Random: " + rand);
 
