@@ -14,8 +14,8 @@ public class MediatorScript : MonoBehaviour {
 	public float baseTime;
 	public float timeLeft;
 	public float score;
-	float powerFailureInterval = 15;
-	float powerFailureChance = 20;
+	float powerFailureInterval = 5;
+	float powerFailureChance = 100;
 	float bandwidth;
 
 	public string previousCommand = "";
@@ -48,6 +48,16 @@ public class MediatorScript : MonoBehaviour {
 	Vector2 inPosition = new Vector2(-1100, 0);
 
 	Vector2 currentPosition;
+
+	public GameObject trail1;
+	public GameObject trail2;
+	public GameObject trail3;
+	public GameObject trail4;
+
+	public Transform tTran;
+	public Transform aTran;
+	public Transform bTran;
+	public Transform cTran;
 
 	void Awake() {
 
@@ -426,16 +436,10 @@ public class MediatorScript : MonoBehaviour {
 			
 			if (receiverTeam)
 				Spread ();
-		} else if (action.Equals ("get")) {
-
-			if (powerFailure)
-				return;
-			
-			if(receiverTeam)
-				GetBandwidth ();
 		} else if (action.Equals ("restart")) {
 
-			Restart ();
+			if(powerFailure)
+				Restart ();
 		}  else {
 
 			Debug.Log ("INVALID COMMAND");
@@ -443,7 +447,7 @@ public class MediatorScript : MonoBehaviour {
 			return;
 		}
 
-		ShowBandwidthValues ();
+//		ShowBandwidthValues ();
 	}
 
 	void SetReceiverTeam(string receiver) {
@@ -473,8 +477,42 @@ public class MediatorScript : MonoBehaviour {
 
 		Debug.Log ("TUNNEL");
 
-		if(bandwidth >= 0.5f)
-			receiverTeam.bandwidth += 0.5f;
+		List<TeamScript> teams = new List<TeamScript> ();
+		teams.Add (teamA);
+		teams.Add (teamB);
+		teams.Add (teamC);
+
+		TeamScript highestTeam = null;
+
+		foreach (TeamScript ts in teams) {
+		
+			if (ts == receiverTeam)
+				continue;
+
+			if (!highestTeam) {
+
+				highestTeam = ts;
+			} else {
+			
+				if (highestTeam.bandwidth < ts.bandwidth)
+					highestTeam = ts;
+			}
+		}
+
+		StartCoroutine (TunnelAnim (highestTeam.transform));
+
+		receiverTeam.bandwidth += 0.5f;
+		highestTeam.bandwidth -= 0.5f;
+	}
+
+	IEnumerator TunnelAnim(Transform highestTeam) {
+
+		MoveTrail (highestTeam.transform, tTran, trail1);
+
+		yield return new WaitForSeconds (1);
+
+		MoveTrail (tTran, receiverTeam.transform, trail2);
+
 	}
 
 	void Maximum() {
@@ -484,6 +522,19 @@ public class MediatorScript : MonoBehaviour {
 		teamC.bandwidth = 0;
 
 		receiverTeam.bandwidth = 2;
+
+		StartCoroutine (MaximumAnim ());
+	}
+
+	IEnumerator MaximumAnim() {
+
+		MoveTrail (aTran, tTran, trail1);
+		MoveTrail (bTran, tTran, trail2);
+		MoveTrail (cTran, tTran, trail3);
+
+		yield return new WaitForSeconds (1);
+
+		MoveTrail (tTran, receiverTeam.transform, trail4);
 	}
 
 	void Spread() {
@@ -495,20 +546,35 @@ public class MediatorScript : MonoBehaviour {
 		teamC.bandwidth = 0.5f;
 
 		receiverTeam.bandwidth = 1;
+
+		StartCoroutine (SpreadAnim ());
 	}
 
-	void GetBandwidth() {
+	IEnumerator SpreadAnim() {
 
-		if (receiverTeam.bandwidth >= 0.5f) {
-		
-			receiverTeam.bandwidth -= 0.5f;
-		}
+		MoveTrail (aTran, tTran, trail1);
+		MoveTrail (bTran, tTran, trail2);
+		MoveTrail (cTran, tTran, trail3);
+
+		yield return new WaitForSeconds (1.0125f);
+
+		MoveTrail (tTran, aTran, trail1);
+		MoveTrail (tTran, bTran, trail2);
+		MoveTrail (tTran, cTran, trail3);
+
+		yield return new WaitForSeconds (0.25f);
+
+		MoveTrail (tTran, receiverTeam.transform, trail1);
 	}
 
 	void Restart() {
 		
 		Debug.Log ("RESTARTING");
 		powerFailure = false;
+
+		MoveTrail (tTran, aTran, trail1);
+		MoveTrail (tTran, bTran, trail2);
+		MoveTrail (tTran, cTran, trail3);
 	}
 
 	void ShowBandwidthValues() {
@@ -567,7 +633,7 @@ public class MediatorScript : MonoBehaviour {
 		score += teamB.Patience_Value / 100.0f;
 		score += teamC.Patience_Value / 100.0f;
 
-		Debug.Log ("Score: " + score);
+//		Debug.Log ("Score: " + score);
 	}
 
 	void GameOver() {
@@ -591,5 +657,36 @@ public class MediatorScript : MonoBehaviour {
 		yield return new WaitForSeconds (1);
 
 		SetInstruction ("ENTER COMMAND");
+	}
+
+	void MoveTrail(Transform startPos, Transform endPos, GameObject usedTrail) {
+	
+		Debug.Log ("MOVING TRAIL");
+		StartCoroutine (MovingTrail (startPos.position, endPos.position, usedTrail));
+	}
+
+	IEnumerator MovingTrail(Vector2 startPos, Vector2 endPos, GameObject usedTrail) {
+
+		usedTrail.SetActive (false);
+
+		usedTrail.transform.position = startPos;
+
+		usedTrail.SetActive (true);
+
+		float elapsedTime = 0;
+
+		while (elapsedTime < 0.5f) {
+		
+			usedTrail.transform.position = Vector2.Lerp (startPos, endPos, elapsedTime / 0.5f);
+
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+
+		usedTrail.transform.position = endPos;
+
+		yield return new WaitForSeconds (0.5f);
+
+		usedTrail.SetActive (false);
 	}
 }
