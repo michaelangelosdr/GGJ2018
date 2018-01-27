@@ -12,6 +12,8 @@ public class TeamScript : MonoBehaviour {
 	public Teamstate CurrentState;
 	public GameObject SpriteObject;
 
+	public List<GameObject> WifiSignal;
+
 	public static float StateChangeTime = 10;
 
 	public float bandwidth;
@@ -50,9 +52,30 @@ public class TeamScript : MonoBehaviour {
 			Patience_Depleted ();
 
 		UpdateMeter ();
+		ChangeWifi_UI ();
+
 
 		textMesh.text = CurrentState.ToString ();
 		nameMesh.text = this.name + " - " + bandwidth.ToString();
+	}
+
+	void ChangeWifi_UI()
+	{
+		float SpriteWIFI_Index = bandwidth / 0.5f;
+		if (SpriteWIFI_Index >= 2) {
+			SpriteWIFI_Index = 2;
+		}
+
+
+		for(int x = 0; x < WifiSignal.Count; x++)
+		{
+			if(x == SpriteWIFI_Index){
+			WifiSignal [x].SetActive (true);
+		} else {
+			WifiSignal [x].SetActive (false);
+		}
+		}
+
 	}
 
 	void UpdateMeter() {
