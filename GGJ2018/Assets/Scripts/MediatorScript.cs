@@ -18,8 +18,6 @@ public class MediatorScript : MonoBehaviour {
 	float powerFailureChance = 20;
 	float bandwidth;
 
-
-
 	public string previousCommand = "";
 	public string command;
 
@@ -41,7 +39,12 @@ public class MediatorScript : MonoBehaviour {
 	public static bool gameOver = false;
 
 	public GameObject powerFailureOverlay;
+
 	public GameObject gameOverOverlay;
+	public GameObject winOverlay;
+
+	public Text gameOverScore;
+	public Text winScore;
 
 	public bool usingHelp = false;
 	public RectTransform helpWindow;
@@ -100,7 +103,14 @@ public class MediatorScript : MonoBehaviour {
 			secondsPart = "0" + secondsPart;
 
 		timeleftUI.text = Mathf.Floor(timeLeft/60.0f) + ":" + secondsPart;
-		scoreUI.text = "Score: " + ((int)score);
+
+		if (gameStarted)
+			scoreUI.text = "Score: " + ((int)score);
+		else
+			scoreUI.text = "";
+
+		gameOverScore.text = "Score: " + ((int)score) + "";
+		winScore.text = "Score: " + ((int)score) + "";
 
 		powerFailureOverlay.SetActive (powerFailure);
 
@@ -112,8 +122,12 @@ public class MediatorScript : MonoBehaviour {
 		else
 			consoleUI.text = "> _";
 
-		if (timeLeft < 0 || (teamA.Patience_Value <= 0 || teamB.Patience_Value <= 0 || teamC.Patience_Value <= 0))
+		if (timeLeft < 0)
+			Win ();
+		else if (teamA.Patience_Value <= 0 || teamB.Patience_Value <= 0 || teamC.Patience_Value <= 0) {
+		
 			GameOver ();
+		}
 
 		if (Input.GetKeyDown (KeyCode.Tab))
 			HelpPressed ();
@@ -139,6 +153,7 @@ public class MediatorScript : MonoBehaviour {
 		tutorialCounter = 0;
 		tutorial = true;
 
+		yield return new WaitForSeconds (1.5f);
 
 		ShowInstruction ("Show tutorial? (y or n)");
 
@@ -156,22 +171,22 @@ public class MediatorScript : MonoBehaviour {
 
 			yield return MachineTyping ("Hi!");
 			yield return MachineTyping ("You must be the new intern at PLDC!");
-			yield return MachineTyping ("You're job is simply to TRANSMIT BANDWIDTH to GGJammers", 0.5f);
-			yield return MessageWithConfirmation ("press enter to view next messages!");
-			yield return MachineTyping ("Nice. ;)");
+			yield return MachineTyping ("Your job is simply to TRANSMIT BANDWIDTH to GGJammers", 0.5f);
+			yield return MessageWithConfirmation ("Press enter to view next messages!");
+			yield return MachineTyping ("Great! Let's get started. :D");
 			//yield return MachineTyping ("I'll show you what teams are all about!", 0.5f);
 
 			ShowNextTutorial ();
 
 			yield return MessageWithConfirmation ("Each team has a PATIENCE BAR.");
-			yield return MachineTyping ("If one of them loses their patience..");
-			yield return MessageWithConfirmation ("It's GAME OVER");
+			yield return MessageWithConfirmation ("If one of them loses their patience, it's GAME OVER");
 
 			ShowNextTutorial ();
+
 			yield return MessageWithConfirmation ("This shows the amount of bandwidth a team has.");
 
-
 			ShowNextTutorial ();
+
 			yield return MessageWithConfirmation ("A team's name is shown on their tables.");
 //			yield return MachineTyping ("Each team has 4 states.");
 //			yield return MessageWithConfirmation ("WORKING -> don't need much bandwidth.");
@@ -202,11 +217,19 @@ public class MediatorScript : MonoBehaviour {
 //			yield return MachineTyping ("The next command is 'tunnel x'");
 			//yield return MessageWithConfirmation ("'tunnel x' transmits bandwith to team x");
 			//yield return MessageWithConfirmation ("NOTE: Check to see how much you can give out.");
-			yield return MessageWithConfirmation ("use tunnel [team letter] to transmit bandwith!");
+			yield return MessageWithConfirmation ("Use tunnel [team letter] to transmit bandwith!");
 			yield return MachineTyping ("Team B needs bandwith!",0.5f);
 			yield return MessageWithSpecificConfirmation ("Type 'tunnel b' to transmit some to team B.", "tunnel b");
 
 			teamB.bandwidth += 0.5f;
+
+			MoveTrail (teamA.transform, tTran, trail1);
+
+			yield return new WaitForSeconds (1);
+
+			MoveTrail (tTran, teamB.transform, trail2);
+
+			yield return MessageWithConfirmation ("Use the tunnel command if you want to boost a specific team.");
 
 //			yield return MachineTyping ("Another job well done! ^_^");
 //			yield return MachineTyping ("... for a noob", 0.5f);
@@ -215,14 +238,29 @@ public class MediatorScript : MonoBehaviour {
 //			yield return MachineTyping ("The next command is 'spread x'");
 //			yield return MachineTyping ("'spread x' spreads the bandwidth among the teams...");
 //			yield return MessageWithConfirmation ("...with team X getting more than the other teams");
-			yield return MessageWithConfirmation (" Next command would be the SPREAD [team letter] command ");
+			yield return MessageWithConfirmation ("Next command would be the SPREAD [team letter] command ");
 			yield return MessageWithSpecificConfirmation ("Type 'spread c' to distribute the bandwidth", "spread c");
 
 			teamA.bandwidth = 0.5f;
 			teamB.bandwidth = 0.5f;
 			teamC.bandwidth = 1f;
-					
-			yield return MessageWithConfirmation ("Notice that team C received more bandwith and the rest of the bandwith was evenly distributed");
+
+			MoveTrail (aTran, tTran, trail1);
+			MoveTrail (bTran, tTran, trail2);
+			MoveTrail (cTran, tTran, trail3);
+
+			yield return new WaitForSeconds (1.125f);
+
+			MoveTrail (tTran, aTran, trail1);
+			MoveTrail (tTran, bTran, trail2);
+			MoveTrail (tTran, cTran, trail3);
+
+			yield return new WaitForSeconds (0.125f);
+
+			MoveTrail (tTran, teamC.transform, trail4);
+
+			yield return MessageWithConfirmation ("Use the spread command if you want to evenly distribute the bandwidth among the teams");
+			yield return MessageWithConfirmation ("NOTE that the team you choose will have a slightly higher bandwidth compared to the others.");
 
 //			yield return MachineTyping ("Nice! Now all the teams are loving you. :D");
 ////		yield return MachineTyping ("Too bad your crush doesn't. ;')", 0.5f);
@@ -234,13 +272,22 @@ public class MediatorScript : MonoBehaviour {
 //			yield return MessageWithConfirmation ("'max x' transmits all the bandwith team x.");
 //			yield return MachineTyping ("Heckin' ridiculous, if you ask me.");
 //			yield return MachineTyping ("Let's give team A all the bandwith now.");
-			yield return MachineTyping ("If needed, you can give a team all the bandwidth..");
-			yield return MessageWithConfirmation ("..by using the 'max' command.");
+			yield return MessageWithConfirmation ("If needed, you can give a team all the bandwidth by using the 'max' command.");
 			yield return MessageWithSpecificConfirmation ("Type 'max a' give team A all the bandwidth.", "max a");
 
 			teamA.bandwidth = 2;
 			teamB.bandwidth = 0;
 			teamC.bandwidth = 0;
+
+			MoveTrail (aTran, tTran, trail1);
+			MoveTrail (bTran, tTran, trail2);
+			MoveTrail (cTran, tTran, trail3);
+
+			yield return new WaitForSeconds (1);
+
+			MoveTrail (tTran, aTran, trail4);
+
+			yield return MessageWithConfirmation ("Use the max command if you want to drastically increase one team's patience (at the cost of the other teams' patience).");
 
 //			yield return MachineTyping ("I bet they're heckin happy now. :/");
 			//yield return MachineTyping ("Oops!", 0.5f);
@@ -263,7 +310,7 @@ public class MediatorScript : MonoBehaviour {
 			yield return MachineTyping ("*Phew* That was a close one.");
 			yield return MessageWithConfirmation ("Just do that everytime a power failure happens, ok?");
 
-			yield return MachineTyping ("A few last notes:");
+			yield return MachineTyping ("A few notes before we part:");
 			yield return MessageWithConfirmation ("Press the 'up arrow' to retype your last command.");
 			yield return MessageWithConfirmation ("Press 'tab' to bring out a cheat sheet.");
 
@@ -344,12 +391,17 @@ public class MediatorScript : MonoBehaviour {
 
 		int counter = 0;
 
+		SFXScript.Instance.PlaySpeech ();
+
 		while(counter <= message.Length) {
+			
 
 			instructionUI.text = message.Substring (0, counter++);
 
 			yield return new WaitForSeconds (0.025f);
 		}
+
+		SFXScript.Instance.StopSpeech ();
 
 		instructionUI.text = message;
 
@@ -378,10 +430,12 @@ public class MediatorScript : MonoBehaviour {
 			command = previousCommand;
 
 		foreach (char c in Input.inputString) {
-
+			
 			if (c == '\b') {
 
 				if (command.Length != 0) {
+
+					SFXScript.Instance.PlayClickSound ();
 
 					command =command.Substring(0, command.Length - 1);
 				}
@@ -391,10 +445,14 @@ public class MediatorScript : MonoBehaviour {
 
 				//Debug.Log ("Command: " + command);
 
+				if(command.Length > 1)
+					SFXScript.Instance.PlayClickSound ();
+
 				if(!tutorial)
 					ProcessCommand ();
 			} else {
 
+				SFXScript.Instance.PlayClickSound ();
 				command += c;
 				//Debug.Log (command);
 			}
@@ -512,6 +570,7 @@ public class MediatorScript : MonoBehaviour {
 
 		StartCoroutine (TunnelAnim (highestTeam.transform));
 
+		SFXScript.Instance.PlayTransfer ();
 		receiverTeam.bandwidth += 0.5f;
 		highestTeam.bandwidth -= 0.5f;
 	}
@@ -535,6 +594,7 @@ public class MediatorScript : MonoBehaviour {
 		receiverTeam.bandwidth = 2;
 
 		StartCoroutine (MaximumAnim ());
+		SFXScript.Instance.PlayTransfer ();
 	}
 
 	IEnumerator MaximumAnim() {
@@ -559,6 +619,7 @@ public class MediatorScript : MonoBehaviour {
 		receiverTeam.bandwidth = 1;
 
 		StartCoroutine (SpreadAnim ());
+		SFXScript.Instance.PlayTransfer ();
 	}
 
 	IEnumerator SpreadAnim() {
@@ -586,6 +647,9 @@ public class MediatorScript : MonoBehaviour {
 		MoveTrail (tTran, aTran, trail1);
 		MoveTrail (tTran, bTran, trail2);
 		MoveTrail (tTran, cTran, trail3);
+
+		SFXScript.Instance.PlayCling ();
+		SFXScript.Instance.PlayTransfer ();
 	}
 
 	void ShowBandwidthValues() {
@@ -651,9 +715,28 @@ public class MediatorScript : MonoBehaviour {
 
 		gameOver = true;
 
+		BGMScript.Instance.Mute ();
+		SFXScript.Instance.PlayDialUp ();
+
 		usingHelp = false;
 		powerFailure = false;
 		gameOverOverlay.SetActive (true);
+	}
+
+	void Win() {
+	
+		gameOver = true;
+
+		SFXScript.Instance.PlayCling ();
+
+		usingHelp = false;
+		powerFailure = false;
+		winOverlay.SetActive (true);
+	}
+
+	void SetScore() {
+
+
 	}
 
 	void TemporaryMessage(string temp) {

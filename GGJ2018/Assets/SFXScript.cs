@@ -16,6 +16,15 @@ public class SFXScript : MonoBehaviour {
 
 	public AudioSource audioSource;
 
+	public AudioClip click1;
+	public AudioClip click2;
+	public AudioClip click3;
+	public AudioClip dialUp;
+	public AudioClip cling;
+	public AudioClip hit;
+	public AudioClip alarm;
+	public AudioClip speechText;
+
 	float originalVolume;
 
 	void Awake() {
@@ -33,9 +42,10 @@ public class SFXScript : MonoBehaviour {
 		}
 	}
 
-	public void PlayClip(AudioClip newClip) {
+	public void PlayClip(AudioClip newClip, float newVolume = 1) {
 
 		Unmute ();
+		audioSource.volume = newVolume;
 		audioSource.PlayOneShot (newClip);
 	}
 
@@ -47,5 +57,50 @@ public class SFXScript : MonoBehaviour {
 	public void Unmute() {
 
 		audioSource.volume = originalVolume;
+	}
+
+	public void PlayClickSound() {
+
+		int rand = Random.Range (0, 3);
+
+		if (rand == 0)
+			PlayClip (click1, 0.25f);
+		if (rand == 1)
+			PlayClip (click2, 0.25f);
+		if (rand == 2)
+			PlayClip (click3, 0.25f);
+	}
+
+	public void PlayAlarm() {
+
+		PlayClip (alarm, 0.75f);
+	}
+
+	public void PlayDialUp() {
+
+		PlayClip (dialUp);
+	}
+
+	public void PlayTransfer() {
+
+		PlayClip (hit, 0.75f);
+	}
+
+	public void PlayCling() {
+
+		PlayClip (cling);
+	}
+
+	public void PlaySpeech() {
+
+		audioSource.clip = speechText;
+		audioSource.loop = true;
+		audioSource.Play();
+	}
+
+	public void StopSpeech() {
+
+		audioSource.loop = false;
+		audioSource.Stop ();
 	}
 }
