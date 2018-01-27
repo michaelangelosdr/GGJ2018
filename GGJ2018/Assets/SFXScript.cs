@@ -23,6 +23,7 @@ public class SFXScript : MonoBehaviour {
 	public AudioClip cling;
 	public AudioClip hit;
 	public AudioClip alarm;
+	public AudioClip speechText;
 
 	float originalVolume;
 
@@ -88,5 +89,18 @@ public class SFXScript : MonoBehaviour {
 	public void PlayCling() {
 
 		PlayClip (cling);
+	}
+
+	public void PlaySpeech() {
+
+		audioSource.clip = speechText;
+		audioSource.loop = true;
+		audioSource.Play();
+	}
+
+	public void StopSpeech() {
+
+		audioSource.loop = false;
+		audioSource.Stop ();
 	}
 }

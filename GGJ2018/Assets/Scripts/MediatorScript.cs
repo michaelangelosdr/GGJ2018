@@ -34,12 +34,17 @@ public class MediatorScript : MonoBehaviour {
 	bool tutorial;
 	public static bool gameStarted = false;
 
-	public static bool powerFailure = true;
+	public static bool powerFailure = false;
 
 	public static bool gameOver = false;
 
 	public GameObject powerFailureOverlay;
+
 	public GameObject gameOverOverlay;
+	public GameObject winOverlay;
+
+	public Text gameOverScore;
+	public Text winScore;
 
 	public bool usingHelp = false;
 	public RectTransform helpWindow;
@@ -104,6 +109,9 @@ public class MediatorScript : MonoBehaviour {
 		else
 			scoreUI.text = "";
 
+		gameOverScore.text = "Score: " + ((int)score) + "";
+		winScore.text = "Score: " + ((int)score) + "";
+
 		powerFailureOverlay.SetActive (powerFailure);
 
 		if (showing)
@@ -114,8 +122,12 @@ public class MediatorScript : MonoBehaviour {
 		else
 			consoleUI.text = "> _";
 
-		if (timeLeft < 0 || (teamA.Patience_Value <= 0 || teamB.Patience_Value <= 0 || teamC.Patience_Value <= 0))
+		if (timeLeft < 0)
+			Win ();
+		else if (teamA.Patience_Value <= 0 || teamB.Patience_Value <= 0 || teamC.Patience_Value <= 0) {
+		
 			GameOver ();
+		}
 
 		if (Input.GetKeyDown (KeyCode.Tab))
 			HelpPressed ();
@@ -141,6 +153,7 @@ public class MediatorScript : MonoBehaviour {
 		tutorialCounter = 0;
 		tutorial = true;
 
+		yield return new WaitForSeconds (1.5f);
 
 		ShowInstruction ("Show tutorial? (y or n)");
 
@@ -378,12 +391,17 @@ public class MediatorScript : MonoBehaviour {
 
 		int counter = 0;
 
+		SFXScript.Instance.PlaySpeech ();
+
 		while(counter <= message.Length) {
+			
 
 			instructionUI.text = message.Substring (0, counter++);
 
 			yield return new WaitForSeconds (0.025f);
 		}
+
+		SFXScript.Instance.StopSpeech ();
 
 		instructionUI.text = message;
 
@@ -427,14 +445,14 @@ public class MediatorScript : MonoBehaviour {
 
 				//Debug.Log ("Command: " + command);
 
-				SFXScript.Instance.PlayClickSound ();
+				if(command.Length > 1)
+					SFXScript.Instance.PlayClickSound ();
 
 				if(!tutorial)
 					ProcessCommand ();
 			} else {
 
 				SFXScript.Instance.PlayClickSound ();
-
 				command += c;
 				//Debug.Log (command);
 			}
@@ -703,6 +721,22 @@ public class MediatorScript : MonoBehaviour {
 		usingHelp = false;
 		powerFailure = false;
 		gameOverOverlay.SetActive (true);
+	}
+
+	void Win() {
+	
+		gameOver = true;
+
+		SFXScript.Instance.PlayCling ();
+
+		usingHelp = false;
+		powerFailure = false;
+		winOverlay.SetActive (true);
+	}
+
+	void SetScore() {
+
+
 	}
 
 	void TemporaryMessage(string temp) {

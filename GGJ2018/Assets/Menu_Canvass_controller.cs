@@ -13,6 +13,7 @@ public class Menu_Canvass_controller : MonoBehaviour {
 	void Start() {
 
 		BGMScript.Instance.PlayMainMenuBGM ();
+		BlackOverlay.Instance.FadeOut ();
 	}
 
 	public void Start_Clicked()
@@ -47,19 +48,6 @@ public class Menu_Canvass_controller : MonoBehaviour {
 
 		SFXScript.Instance.PlayClickSound ();
 		Application.Quit ();
-	}
-
-	public void Show_HighScores()
-	{
-		if (Highscore_Window.gameObject.activeInHierarchy == false) {
-			Highscore_Window.SetActive (true);	
-		}
-	}
-	public void Hide_HighScore()
-	{
-		if (Highscore_Window.gameObject.activeInHierarchy == true) {
-			Highscore_Window.SetActive (false);
-		}
 	}
 
 }

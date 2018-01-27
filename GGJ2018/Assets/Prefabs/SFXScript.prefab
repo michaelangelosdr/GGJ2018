@@ -140,3 +140,4 @@ MonoBehaviour:
   cling: {fileID: 8300000, guid: 88ce5eaa930e0d442b64eaf5cc8c6f13, type: 3}
   hit: {fileID: 8300000, guid: 493add02d495792468ff46a900729272, type: 3}
   alarm: {fileID: 8300000, guid: 99646e685023515468994929d218ee27, type: 3}
+  speechText: {fileID: 8300000, guid: 73d46c587921bbd49ab8e62bb6bf7f56, type: 3}
