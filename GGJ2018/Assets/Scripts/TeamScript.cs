@@ -11,10 +11,12 @@ public class TeamScript : MonoBehaviour {
 	public float time_sec;
 	public Teamstate CurrentState;
 	public GameObject SpriteObject;
+	public GameObject NotifSprite;
+
 
 	public List<GameObject> WifiSignal;
 
-	public static float StateChangeTime = 10;
+	public static float StateChangeTime = 5;
 
 	public float bandwidth;
 
@@ -257,9 +259,15 @@ public class TeamScript : MonoBehaviour {
 			}
 
 			yield return new WaitForSeconds (StateChangeTime);
-
+			ShowChangeState ();
 			MediatorScript.ResetStates ();
 		}
+	}
+
+
+	public void ShowChangeState()
+	{
+		NotifSprite.transform.position = Vector3.Lerp (transform.position, new Vector3 (transform.position.x, transform.position.y + 0.2f, transform.position.z), 0.02f);
 	}
 
 }
