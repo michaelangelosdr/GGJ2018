@@ -1,9 +1,32 @@
 fileFormatVersion: 2
 guid: f6fa61fba88d7b3488b67cfb5beda707
-timeCreated: 1517025854
+timeCreated: 1517040873
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: musician_0
+    21300002: musician_1
+    21300004: musician_2
+    21300006: musician_3
+    21300008: musician_4
+    21300010: musician_5
+    21300012: musician_6
+    21300014: musician_7
+    21300016: musician_8
+    21300018: musician_9
+    21300020: musician_10
+    21300022: musician_11
+    21300024: musician_12
+    21300026: musician_13
+    21300028: musician_14
+    21300030: musician_15
+    21300032: musician_16
+    21300034: musician_17
+    21300036: musician_18
+    21300038: musician_19
+    21300040: musician_20
+    21300042: musician_21
+    21300044: musician_22
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -39,7 +62,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -89,7 +112,329 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: musician_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 1762
+        width: 232
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_1
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 1762
+        width: 232
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_2
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 1762
+        width: 232
+        height: 267
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_3
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 1762
+        width: 232
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_4
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 1476
+        width: 232
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_5
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 1476
+        width: 232
+        height: 273
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_6
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 1476
+        width: 232
+        height: 276
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_7
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 1476
+        width: 232
+        height: 274
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_8
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 1190
+        width: 232
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_9
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 1190
+        width: 232
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_10
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 1190
+        width: 232
+        height: 267
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_11
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 1190
+        width: 232
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_12
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 904
+        width: 232
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_13
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 904
+        width: 232
+        height: 266
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_14
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 904
+        width: 232
+        height: 267
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_15
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 904
+        width: 232
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_16
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 618
+        width: 232
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_17
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 618
+        width: 232
+        height: 273
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_18
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 618
+        width: 232
+        height: 276
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_19
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 618
+        width: 232
+        height: 273
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_20
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 332
+        width: 232
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_21
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 332
+        width: 232
+        height: 268
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: musician_22
+      rect:
+        serializedVersion: 2
+        x: 494
+        y: 332
+        width: 232
+        height: 267
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
     outline: []
     physicsShape: []
   spritePackingTag: 
