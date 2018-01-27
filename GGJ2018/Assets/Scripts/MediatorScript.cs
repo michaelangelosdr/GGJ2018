@@ -36,6 +36,9 @@ public class MediatorScript : MonoBehaviour {
 
 	public static bool gameOver = false;
 
+	public GameObject powerFailureOverlay;
+	public GameObject gameOverOverlay;
+
 	void Awake() {
 
 		timeLeft = baseTime;
@@ -68,6 +71,8 @@ public class MediatorScript : MonoBehaviour {
 
 		timeleftUI.text = "Time Left: " + timeLeft + "s";
 		scoreUI.text = "Score: " + ((int)score);
+
+		powerFailureOverlay.SetActive (powerFailure);
 
 		if (showing)
 			command = "";
@@ -483,6 +488,6 @@ public class MediatorScript : MonoBehaviour {
 
 		gameOver = true;
 
-		Debug.Log ("Score: " + score + "!");
+		gameOverOverlay.SetActive (true);
 	}
 }
