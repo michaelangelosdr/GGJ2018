@@ -14,8 +14,8 @@ public class MediatorScript : MonoBehaviour {
 	public float baseTime;
 	public float timeLeft;
 	public float score;
-	public float powerFailureInterval;
-	public float powerFailureChance;
+	float powerFailureInterval = 15;
+	float powerFailureChance = 20;
 	float bandwidth;
 
 	public string command;
@@ -33,6 +33,8 @@ public class MediatorScript : MonoBehaviour {
 	bool tutorial;
 	public static bool gameStarted = false;
 	public static bool powerFailure = false;
+
+	public static bool gameOver = false;
 
 	void Awake() {
 
@@ -74,6 +76,9 @@ public class MediatorScript : MonoBehaviour {
 			consoleUI.text = "> " + command;
 		else
 			consoleUI.text = "> _";
+
+		if (timeLeft < 0 || (teamA.Patience_Value <= 0 || teamB.Patience_Value <= 0 || teamC.Patience_Value <= 0))
+			GameOver ();
 
 //		Debug.Log (teamA.Patience_Value + ":" + teamB.Patience_Value + ":" + teamC.Patience_Value);
 	}
@@ -429,7 +434,7 @@ public class MediatorScript : MonoBehaviour {
 
 		StartCoroutine (PowerFailing ());
 
-		while (timeLeft > 0) {
+		while (timeLeft > 0 && !gameOver) {
 			
 			yield return new WaitForSeconds (1);
 
@@ -452,7 +457,7 @@ public class MediatorScript : MonoBehaviour {
 
 	IEnumerator PowerFailing() {
 
-		while (timeLeft > 0) {
+		while (timeLeft > 0 && !gameOver) {
 		
 			yield return new WaitForSeconds (powerFailureInterval);
 
@@ -472,5 +477,12 @@ public class MediatorScript : MonoBehaviour {
 		score += teamC.Patience_Value / 100.0f;
 
 		Debug.Log ("Score: " + score);
+	}
+
+	void GameOver() {
+
+		gameOver = true;
+
+		Debug.Log ("Score: " + score + "!");
 	}
 }

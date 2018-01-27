@@ -56,7 +56,16 @@ public class TeamScript : MonoBehaviour {
 	}
 
 	void UpdateMeter() {
+
+		if (MediatorScript.gameOver)
+			return;
+
+		if (Patience_Value < 0)
+			Patience_Value = 0;
 		
+		if (Patience_Value > 100)
+			Patience_Value = 100;
+
 		if(meterFillContainer)
 			meterFillContainer.localScale = new Vector3 (Patience_Value / 100.0f, 1, 1);
 
@@ -113,8 +122,6 @@ public class TeamScript : MonoBehaviour {
 	private void Be_Impatient()
 	{
 		//For now this would be a constant rate
-		if (Patience_Value < 0)
-			Patience_Value = 0;
 
 		Patience_Value -= Patience_Multiplier;
 	}
@@ -180,9 +187,6 @@ public class TeamScript : MonoBehaviour {
 				Patience_Value += Patience_Multiplier * 1.5f;
 			}
 		}
-
-		if (Patience_Value > 100)
-			Patience_Value = 100;
 	}
 
 	public void Patience_Depleted()
@@ -196,7 +200,7 @@ public class TeamScript : MonoBehaviour {
 
 		yield return new WaitUntil (() => MediatorScript.gameStarted);
 
-		while (true) {
+		while (!MediatorScript.gameOver) {
 		
 //			Debug.Log (this.name + ": " + CurrentState.ToString ());
 
