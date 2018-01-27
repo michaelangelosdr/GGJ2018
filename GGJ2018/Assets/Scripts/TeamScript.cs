@@ -62,7 +62,7 @@ public class TeamScript : MonoBehaviour {
 			angryVein.SetActive(false);
 
 		textMesh.text = CurrentState.ToString ();
-		nameMesh.text = this.name + " - " + bandwidth.ToString();
+		nameMesh.text = this.name;
 	}
 
 	void ChangeWifi_UI()

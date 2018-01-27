@@ -155,12 +155,12 @@ public class MediatorScript : MonoBehaviour {
 
 			ShowNextTutorial ();
 
-			yield return MessageWithConfirmation ("This represents the team's state.");
-			yield return MachineTyping ("Each team has 4 states.");
-			yield return MessageWithConfirmation ("WORKING -> don't need much bandwidth.");
-			yield return MessageWithConfirmation ("GAMING -> need average bandwidth.");
-			yield return MessageWithConfirmation ("UPLOADING -> need all the bandwidth they can get.");
-			yield return MessageWithConfirmation ("WATCHING -> must get all it can.");
+			yield return MessageWithConfirmation ("A team's name is shown on their tables.");
+//			yield return MachineTyping ("Each team has 4 states.");
+//			yield return MessageWithConfirmation ("WORKING -> don't need much bandwidth.");
+//			yield return MessageWithConfirmation ("GAMING -> need average bandwidth.");
+//			yield return MessageWithConfirmation ("UPLOADING -> need all the bandwidth they can get.");
+//			yield return MessageWithConfirmation ("WATCHING -> must get all it can.");
 
 			HideTutorial ();
 
