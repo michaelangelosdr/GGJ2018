@@ -10,7 +10,6 @@ public class MediatorScript : MonoBehaviour {
 	[SerializeField] TeamScript teamB;
 	[SerializeField] TeamScript teamC;
 	TeamScript receiverTeam;
-	TeamScript secondaryReceiverTeam;
 
 	public float baseTime;
 	public float timeLeft;
@@ -30,6 +29,8 @@ public class MediatorScript : MonoBehaviour {
 
 	bool showing;
 	bool tutorial;
+	public static bool gameStarted = false;
+	public static bool powerFailure = false;
 
 	void Awake() {
 
@@ -50,6 +51,14 @@ public class MediatorScript : MonoBehaviour {
 
 	void Update () {
 
+		if (Input.GetKey (KeyCode.LeftShift)) {
+		
+			Time.timeScale = 3;
+		} else {
+		
+			Time.timeScale = 1;
+		}
+
 		ComputeBandwidth ();
 		HandleKeyInput ();
 
@@ -69,6 +78,7 @@ public class MediatorScript : MonoBehaviour {
 
 	IEnumerator ShowTutorial() {
 
+		gameStarted = false;
 		tutorialCounter = 0;
 		tutorial = true;
 
@@ -82,7 +92,7 @@ public class MediatorScript : MonoBehaviour {
 		
 			command = "";
 
-			yield return MessageWithSpecificConfirmation ("type 'boi'", "boi");
+//			yield return MessageWithSpecificConfirmation ("type 'boi'", "boi");
 
 			yield return MachineTyping ("Hi!");
 			yield return MachineTyping ("You must be the new intern at PLDC!");
@@ -98,11 +108,12 @@ public class MediatorScript : MonoBehaviour {
 			yield return MessageWithConfirmation ("...how much bandwidth each team is getting.");
 			yield return MachineTyping ("This represents... ");
 			yield return MessageWithConfirmation ("...what state the team is currently in.");
-			yield return MessageWithConfirmation ("Each team has 3 states.");
-			yield return MessageWithConfirmation ("WORKING, GAMING, and UPLOADING.");
+			yield return MessageWithConfirmation ("Each team has 4 states.");
+			yield return MessageWithConfirmation ("WORKING, GAMING, UPLOADING, and WATCHING.");
 			yield return MessageWithConfirmation ("WORKING states don't need much bandwidth.");
 			yield return MessageWithConfirmation ("GAMING states need average bandwidth.");
 			yield return MessageWithConfirmation ("UPLOADING states need all the bandwidth they can get.");
+			yield return MessageWithConfirmation ("WATCHING must ABSOLUTELY get all it can.");
 
 			yield return MachineTyping ("Next up: Commands.");
 			yield return MessageWithConfirmation ("Commands are made up of two parts.");
@@ -125,7 +136,7 @@ public class MediatorScript : MonoBehaviour {
 
 			yield return MessageWithConfirmation ("The next command is 'tunnel x'");
 			yield return MessageWithConfirmation ("'tunnel x' gives team x some bandwidth");
-			yield return MessageWithConfirmation ("NOTE: Check your bandwidth to see how much you can give out.");
+			yield return MessageWithConfirmation ("NOTE: Check to see how much you can give out.");
 			yield return MessageWithConfirmation ("Looks like team B needs some!");
 			yield return MessageWithSpecificConfirmation ("Type 'tunnel b' to give team B bandwidth.", "tunnel b");
 
@@ -137,7 +148,7 @@ public class MediatorScript : MonoBehaviour {
 
 			yield return MessageWithConfirmation ("The next command is 'spread x'");
 			yield return MessageWithConfirmation ("'spread x' spreads the bandwidth among the teams.");
-			yield return MessageWithConfirmation ("With team X getting 2 shares, and the rest getting 1 share.");
+			yield return MessageWithConfirmation ("With team X getting 1 share, and the rest getting 0.5 shares.");
 			yield return MessageWithConfirmation ("Team C could use a bit of lovin' ;)");
 			yield return MessageWithSpecificConfirmation ("Type 'spread c' to distribute the bandwidth", "spread c");
 
@@ -189,8 +200,6 @@ public class MediatorScript : MonoBehaviour {
 		yield return MachineTyping ("2...", 0.5f);
 
 		yield return MachineTyping ("1...", 0.5f);
-
-		yield return new WaitForSeconds (1);
 
 		SetInstruction ("Enter Command");
 
@@ -308,12 +317,9 @@ public class MediatorScript : MonoBehaviour {
 		if(commandSplit.Length > 1)
 			SetReceiverTeam (commandSplit [1].ToLower());
 	
-		if(commandSplit.Length > 2)
-			SetSecondaryReceiverTeam (commandSplit [2].ToLower());
+		if (action.Equals ("tunnel")) {
 
-		if (action.Equals ("route")) {
-
-			if(receiverTeam && secondaryReceiverTeam)
+			if(receiverTeam)
 				Tunnel ();
 		} else if (action.Equals ("max")) {
 		
@@ -360,29 +366,6 @@ public class MediatorScript : MonoBehaviour {
 		}
 
 		Debug.Log ("Reciever Team Set!");
-	}
-
-	void SetSecondaryReceiverTeam(string secondaryReceiver) {
-
-		if (string.IsNullOrEmpty (secondaryReceiver))
-			return;
-		
-		if (secondaryReceiver.Equals ("a")) {
-
-			secondaryReceiverTeam = teamA;
-		} else if (secondaryReceiver.Equals ("b")) {
-
-			secondaryReceiverTeam = teamB;
-		} else if (secondaryReceiver.Equals ("c")) {
-
-			secondaryReceiverTeam = teamC;
-		} else {
-
-			Debug.Log ("Secondary Receiver Team Null");
-			secondaryReceiverTeam = null;
-		}
-
-		Debug.Log ("Secondary Reciever Team Set!");
 	}
 
 	void Tunnel() {
@@ -438,6 +421,8 @@ public class MediatorScript : MonoBehaviour {
 
 	IEnumerator StartGame() {
 
+		gameStarted = true;
+
 		while (timeLeft > 0) {
 			
 			yield return new WaitForSeconds (1);
@@ -449,6 +434,16 @@ public class MediatorScript : MonoBehaviour {
 
 		Debug.Log ("TIME'S UP!!");
 
+	}
+
+	void StartPowerFailure() {
+
+
+	}
+
+	IEnumerator PowerFailing() {
+
+		yield return null;
 	}
 
 	void AddScore() {
