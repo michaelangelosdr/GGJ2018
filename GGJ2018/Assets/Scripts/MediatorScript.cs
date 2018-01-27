@@ -166,10 +166,12 @@ public class MediatorScript : MonoBehaviour {
 			yield return MessageWithConfirmation ("Each team has a PATIENCE BAR.");
 			yield return MachineTyping ("If one of them loses their patience..");
 			yield return MessageWithConfirmation ("It's GAME OVER");
-			yield return MessageWithConfirmation ("This shows the amount of bandwidth a team has.");
 
 			ShowNextTutorial ();
+			yield return MessageWithConfirmation ("This shows the amount of bandwidth a team has.");
 
+
+			ShowNextTutorial ();
 			yield return MessageWithConfirmation ("A team's name is shown on their tables.");
 //			yield return MachineTyping ("Each team has 4 states.");
 //			yield return MessageWithConfirmation ("WORKING -> don't need much bandwidth.");
@@ -188,10 +190,10 @@ public class MediatorScript : MonoBehaviour {
 			yield return MessageWithConfirmation ("In this example, 'get' is the METHOD...");
 			yield return MessageWithConfirmation ("and 'x' is the PARAMETER");
 			yield return MessageWithConfirmation ("The first command, 'get x', gets bandwidth from team x.");*/
-			yield return MachineTyping ("Team A has is taking up too much bandwidth!");
-			yield return MessageWithSpecificConfirmation ("Type 'get a' to get bandwidth from team A.", "get a");
+			//yield return MachineTyping ("Team A has is taking up too much bandwidth!");
+			//yield return MessageWithSpecificConfirmation ("Type 'get a' to get bandwidth from team A.", "get a");
 
-			teamA.bandwidth -= 0.5f;
+			//teamA.bandwidth -= 0.5f;
 
 //			yield return MachineTyping ("Good Job! :D You're pretty good at this. ;)");
 //			yield return MachineTyping ("(Not. :P)", 0.5f);
@@ -200,7 +202,8 @@ public class MediatorScript : MonoBehaviour {
 //			yield return MachineTyping ("The next command is 'tunnel x'");
 			//yield return MessageWithConfirmation ("'tunnel x' transmits bandwith to team x");
 			//yield return MessageWithConfirmation ("NOTE: Check to see how much you can give out.");
-			yield return MessageWithConfirmation ("Looks like team B needs some bandwidth!");
+			yield return MessageWithConfirmation ("use tunnel [team letter] to transmit bandwith!");
+			yield return MachineTyping ("Team B needs bandwith!",0.5f);
 			yield return MessageWithSpecificConfirmation ("Type 'tunnel b' to transmit some to team B.", "tunnel b");
 
 			teamB.bandwidth += 0.5f;
@@ -212,15 +215,14 @@ public class MediatorScript : MonoBehaviour {
 //			yield return MachineTyping ("The next command is 'spread x'");
 //			yield return MachineTyping ("'spread x' spreads the bandwidth among the teams...");
 //			yield return MessageWithConfirmation ("...with team X getting more than the other teams");
-			yield return MachineTyping ("Team C could use a bit of lovin' ;)");
+			yield return MessageWithConfirmation (" Next command would be the SPREAD [team letter] command ");
 			yield return MessageWithSpecificConfirmation ("Type 'spread c' to distribute the bandwidth", "spread c");
 
 			teamA.bandwidth = 0.5f;
 			teamB.bandwidth = 0.5f;
 			teamC.bandwidth = 1f;
 					
-			yield return MachineTyping ("'spread x' distributes bandwidth among the teams..");
-			yield return MessageWithConfirmation ("..with team X getting more than the others");
+			yield return MessageWithConfirmation ("Notice that team C received more bandwith and the rest of the bandwith was evenly distributed");
 
 //			yield return MachineTyping ("Nice! Now all the teams are loving you. :D");
 ////		yield return MachineTyping ("Too bad your crush doesn't. ;')", 0.5f);
