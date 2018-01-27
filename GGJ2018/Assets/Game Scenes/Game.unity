@@ -238,8 +238,8 @@ MonoBehaviour:
   baseTime: 180
   timeLeft: 0
   score: 0
-  powerFailureInterval: 0
-  powerFailureChance: 0
+  powerFailureInterval: 20
+  powerFailureChance: 50
   command: 
   timeleftUI: {fileID: 1735641176}
   scoreUI: {fileID: 287451878}
