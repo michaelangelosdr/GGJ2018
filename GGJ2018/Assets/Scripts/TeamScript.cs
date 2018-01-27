@@ -11,7 +11,7 @@ public class TeamScript : MonoBehaviour {
 	public float time_sec;
 	public Teamstate CurrentState;
 
-	public static float StateChangeTime = 5;
+	public static float StateChangeTime = 10;
 
 	public float bandwidth;
 
@@ -79,8 +79,11 @@ public class TeamScript : MonoBehaviour {
 		case Teamstate.UPLOADING:
 			Patience_Multiplier = patienceBaseDecrease * 0.2f;
 			break;
+		case Teamstate.WATCHING:
+			Patience_Multiplier = patienceBaseDecrease * 0.2f;
+			break;
 		}
-//		Debug.Log (this.name + " is currently: " + curState);
+			//		Debug.Log (this.name + " is currently: " + curState);
 		//Isnert IfStatement(PowerFailure)
 		//{
 		//}
@@ -158,13 +161,13 @@ public class TeamScript : MonoBehaviour {
 
 			if (bandwidth == 0.0f) {
 
-				Patience_Value += (Patience_Multiplier * 0.5f);
+				Patience_Value -= (Patience_Multiplier * 0.5f);
 			} else if (bandwidth == 0.5f) {
 
-				Patience_Value += Patience_Multiplier * -1.0f;
+				Patience_Value += Patience_Multiplier * 0.5f;
 			} else if (bandwidth >= 1 && bandwidth <2) {
 
-				Patience_Value += Patience_Multiplier * -1.25f;
+				Patience_Value += Patience_Multiplier * 1.5f;
 			} else if (bandwidth == 2) {
 
 				Patience_Value += Patience_Multiplier * 1.5f;
