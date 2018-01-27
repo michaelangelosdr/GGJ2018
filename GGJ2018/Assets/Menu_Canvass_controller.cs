@@ -8,6 +8,7 @@ public class Menu_Canvass_controller : MonoBehaviour {
 
 	[SerializeField] List<Button> Buttons;
 	[SerializeField] GGJSceneManager Scenemanager;
+	[SerializeField] GameObject Highscore_Window;
 
 
 	public void Start_Clicked()
@@ -22,16 +23,24 @@ public class Menu_Canvass_controller : MonoBehaviour {
 		Debug.Log ("Show Option");
 
 	}
-
-	public void Show_Highscores()
-	{
-		Debug.Log ("High_Score");
-		//Scenemanager.LoadScene ("HighScore");
-	}
+		
 
 	public void Exit_Game()
 	{
 		Application.Quit ();
+	}
+
+	public void Show_HighScores()
+	{
+		if (Highscore_Window.gameObject.activeInHierarchy == false) {
+			Highscore_Window.SetActive (true);	
+		}
+	}
+	public void Hide_HighScore()
+	{
+		if (Highscore_Window.gameObject.activeInHierarchy == true) {
+			Highscore_Window.SetActive (false);
+		}
 	}
 
 }
