@@ -25,6 +25,8 @@ public class TeamScript : MonoBehaviour {
 
 	public SpriteRenderer fillSR;
 
+	public GameObject angryVein;
+
 	void Awake() {
 
 
@@ -54,6 +56,10 @@ public class TeamScript : MonoBehaviour {
 		UpdateMeter ();
 		ChangeWifi_UI ();
 
+		if(Patience_Value <= 50)
+			angryVein.SetActive(true);
+		else
+			angryVein.SetActive(false);
 
 		textMesh.text = CurrentState.ToString ();
 		nameMesh.text = this.name + " - " + bandwidth.ToString();

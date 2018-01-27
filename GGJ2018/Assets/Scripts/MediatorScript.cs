@@ -18,6 +18,7 @@ public class MediatorScript : MonoBehaviour {
 	float powerFailureChance = 20;
 	float bandwidth;
 
+	public string previousCommand = "";
 	public string command;
 
 	public Text timeleftUI;
@@ -32,12 +33,21 @@ public class MediatorScript : MonoBehaviour {
 	bool showing;
 	bool tutorial;
 	public static bool gameStarted = false;
+
 	public static bool powerFailure = false;
 
 	public static bool gameOver = false;
 
 	public GameObject powerFailureOverlay;
 	public GameObject gameOverOverlay;
+
+	public bool usingHelp = false;
+	public RectTransform helpWindow;
+
+	Vector2 outPosition = new Vector2(-496, 0);
+	Vector2 inPosition = new Vector2(-1100, 0);
+
+	Vector2 currentPosition;
 
 	void Awake() {
 
@@ -69,7 +79,12 @@ public class MediatorScript : MonoBehaviour {
 		ComputeBandwidth ();
 		HandleKeyInput ();
 
-		timeleftUI.text = "Time Left: " + timeLeft + "s";
+		string secondsPart = (timeLeft % 60).ToString ();
+
+		if (secondsPart.Length < 2)
+			secondsPart = "0" + secondsPart;
+
+		timeleftUI.text = Mathf.Floor(timeLeft/60.0f) + ":" + secondsPart;
 		scoreUI.text = "Score: " + ((int)score);
 
 		powerFailureOverlay.SetActive (powerFailure);
@@ -85,7 +100,22 @@ public class MediatorScript : MonoBehaviour {
 		if (timeLeft < 0 || (teamA.Patience_Value <= 0 || teamB.Patience_Value <= 0 || teamC.Patience_Value <= 0))
 			GameOver ();
 
+		if (Input.GetKeyDown (KeyCode.Tab))
+			usingHelp = !usingHelp;
+
+		LerpHelpWindow ();
+
 //		Debug.Log (teamA.Patience_Value + ":" + teamB.Patience_Value + ":" + teamC.Patience_Value);
+	}
+
+	void LerpHelpWindow() {
+
+		if (usingHelp && !gameOver)
+			currentPosition = outPosition;
+		else
+			currentPosition = inPosition;
+
+		helpWindow.anchoredPosition = Vector2.Lerp(helpWindow.anchoredPosition, currentPosition, 0.25f);
 	}
 
 	IEnumerator ShowTutorial() {
@@ -105,6 +135,8 @@ public class MediatorScript : MonoBehaviour {
 			command = "";
 
 //			yield return MessageWithSpecificConfirmation ("type 'boi'", "boi");
+
+			//TODO: TELL ABOUT HINT AND UP BUTTON
 
 			yield return MachineTyping ("Hi!");
 			yield return MachineTyping ("You must be the new intern at PLDC!");
@@ -282,6 +314,12 @@ public class MediatorScript : MonoBehaviour {
 
 	void HandleKeyInput() {
 
+		if (usingHelp || gameOver)
+			return;
+
+		if (Input.GetKeyDown (KeyCode.UpArrow))
+			command = previousCommand;
+
 		foreach (char c in Input.inputString) {
 
 			if (c == '\b') {
@@ -310,6 +348,7 @@ public class MediatorScript : MonoBehaviour {
 
 		ParseData ();
 
+		previousCommand = command;
 		command = "";
 	}
 
