@@ -375,7 +375,7 @@ Prefab:
         type: 2}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: adadf0eaf049b6d49a73389e94d05d80,
+      objectReference: {fileID: 21300000, guid: 7721e7060e6d0e74f8b9f78982449b7b,
         type: 3}
     - target: {fileID: 114019089920963742, guid: deb6832931d1c24449e515a76877792f,
         type: 2}
@@ -396,7 +396,7 @@ Prefab:
         type: 2}
       propertyPath: SpriteObject
       value: 
-      objectReference: {fileID: 1563931607}
+      objectReference: {fileID: 1735681489}
     - target: {fileID: 114923892636831268, guid: deb6832931d1c24449e515a76877792f,
         type: 2}
       propertyPath: spriteData.Array.data[0]
@@ -546,6 +546,20 @@ Prefab:
     - target: {fileID: 4948280092886986, guid: deb6832931d1c24449e515a76877792f, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 212978159633889438, guid: deb6832931d1c24449e515a76877792f,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 18357fc2cb98a0641b1d08c38354c266,
+        type: 3}
+    - target: {fileID: 4974457119492258, guid: deb6832931d1c24449e515a76877792f, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222290443905286, guid: deb6832931d1c24449e515a76877792f, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: deb6832931d1c24449e515a76877792f, type: 2}
@@ -2316,7 +2330,7 @@ Prefab:
         type: 2}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: f6fa61fba88d7b3488b67cfb5beda707,
+      objectReference: {fileID: 21300000, guid: 7721e7060e6d0e74f8b9f78982449b7b,
         type: 3}
     - target: {fileID: 114019089920963742, guid: deb6832931d1c24449e515a76877792f,
         type: 2}
@@ -2613,7 +2627,7 @@ Prefab:
         type: 2}
       propertyPath: SpriteObject
       value: 
-      objectReference: {fileID: 2021076647}
+      objectReference: {fileID: 1974971144}
     - target: {fileID: 114923892636831268, guid: deb6832931d1c24449e515a76877792f,
         type: 2}
       propertyPath: spriteData.Array.data[0]
@@ -2764,6 +2778,12 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 212978159633889438, guid: deb6832931d1c24449e515a76877792f,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d7abf896f7ef31642b2824c49ee25fee,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: deb6832931d1c24449e515a76877792f, type: 2}
   m_IsPrefabParent: 0
@@ -3228,11 +3248,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1550423864}
---- !u!1 &1563931607 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1450651192089090, guid: deb6832931d1c24449e515a76877792f,
-    type: 2}
-  m_PrefabInternal: {fileID: 100760378}
 --- !u!1 &1643735646
 GameObject:
   m_ObjectHideFlags: 0
@@ -3547,6 +3562,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1735641174}
+--- !u!1 &1735681489 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1518669407402414, guid: deb6832931d1c24449e515a76877792f,
+    type: 2}
+  m_PrefabInternal: {fileID: 100760378}
 --- !u!1 &1748861785
 GameObject:
   m_ObjectHideFlags: 0
@@ -3727,6 +3747,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1974971144 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1518669407402414, guid: deb6832931d1c24449e515a76877792f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1338890198}
 --- !u!1 &1984700572
 GameObject:
   m_ObjectHideFlags: 0
@@ -3795,11 +3820,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1984700572}
---- !u!1 &2021076647 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1450651192089090, guid: deb6832931d1c24449e515a76877792f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1338890198}
 --- !u!1 &2039690533
 GameObject:
   m_ObjectHideFlags: 0
