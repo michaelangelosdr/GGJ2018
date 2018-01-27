@@ -103,7 +103,7 @@ public class TeamScript : MonoBehaviour {
 			} else if (bandwidth == 0.5f) {
 
 				Patience_Value += Patience_Multiplier;
-			} else if (bandwidth == 1) {
+			} else if (bandwidth >= 1 && bandwidth <2) {
 
 				Patience_Value += Patience_Multiplier * 2;
 			} else if (bandwidth == 2) {
@@ -116,13 +116,13 @@ public class TeamScript : MonoBehaviour {
 
 			} else if (bandwidth == 0.5f) {
 
-				Patience_Value += Patience_Multiplier * 0.5f;
-			} else if (bandwidth == 1) {
+				Patience_Value += Patience_Multiplier * 0.75f;
+			} else if (bandwidth >= 1 && bandwidth <2) {
 
-				Patience_Value += Patience_Multiplier * 1.5f;
+				Patience_Value += Patience_Multiplier * 2f;
 			} else if (bandwidth == 2) {
 
-				Patience_Value += Patience_Multiplier * 2;
+				Patience_Value += Patience_Multiplier * 2f;
 			}
 		} else if (CurrentState == Teamstate.UPLOADING) {
 
@@ -131,10 +131,10 @@ public class TeamScript : MonoBehaviour {
 				// 
 			} else if (bandwidth == 0.5f) {
 
-				Patience_Value += Patience_Multiplier * 0.25f;
-			} else if (bandwidth == 1) {
+				Patience_Value += Patience_Multiplier * 0.5f;
+			} else if (bandwidth >= 1 && bandwidth <2){
 
-				Patience_Value += Patience_Multiplier * 1.125f;
+				Patience_Value += Patience_Multiplier * 1.5f;
 			} else if (bandwidth == 2) {
 
 				Patience_Value += Patience_Multiplier * 1.5f;
@@ -146,10 +146,10 @@ public class TeamScript : MonoBehaviour {
 				Patience_Value += (Patience_Multiplier * 0.5f);
 			} else if (bandwidth == 0.5f) {
 
-				Patience_Value += Patience_Multiplier;
-			} else if (bandwidth == 1) {
+				Patience_Value += Patience_Multiplier * -1.0f;
+			} else if (bandwidth >= 1 && bandwidth <2) {
 
-				Patience_Value += Patience_Multiplier * 1.25f;
+				Patience_Value += Patience_Multiplier * -1.25f;
 			} else if (bandwidth == 2) {
 
 				Patience_Value += Patience_Multiplier * 1.5f;
