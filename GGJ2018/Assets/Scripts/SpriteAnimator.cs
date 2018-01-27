@@ -9,7 +9,7 @@ public class SpriteAnimator : MonoBehaviour {
 		[SerializeField] protected bool autoplay = false;
 		[SerializeField] protected bool loop = false;
 		[SerializeField] protected float animationDuration = 1.0f;
-		[SerializeField] protected Image image;
+	[SerializeField] protected GameObject image;
 
 		protected int currentFrame = 0;
 		protected bool isPlaying = false;
@@ -27,7 +27,7 @@ public class SpriteAnimator : MonoBehaviour {
 				return;
 			}
 
-			this.image.sprite = this.spriteData[0];
+		this.image.GetComponent<SpriteRenderer>().sprite = this.spriteData[0];
 
 			this.currentFrame = 0;
 			this.isPlaying = false;
@@ -76,7 +76,7 @@ public class SpriteAnimator : MonoBehaviour {
 					}
 				}
 
-				this.image.sprite = this.spriteData[this.currentFrame];
+			this.image.GetComponent<SpriteRenderer>().sprite = this.spriteData[this.currentFrame];
 			}
 		}
 }
