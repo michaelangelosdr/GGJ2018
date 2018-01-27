@@ -267,7 +267,56 @@ public class TeamScript : MonoBehaviour {
 
 	public void ShowChangeState()
 	{
-		NotifSprite.transform.position = Vector3.Lerp (transform.position, new Vector3 (transform.position.x, transform.position.y + 0.2f, transform.position.z), 0.02f);
+
+		StartCoroutine (FloatingNotify ());
+	}
+
+	IEnumerator FloatingNotify() {
+
+		SpriteRenderer sr = NotifSprite.GetComponent<SpriteRenderer> ();
+
+		sr.color = Color.white;
+
+		Vector3 startingPos = new Vector3 (-0.71f, 0.259f, 0);
+		Vector3 endPos = startingPos + Vector3.up * 1;
+
+		Vector3 scale1 = Vector3.one * 1.2f;
+		Vector3 scale2 = Vector3.one;
+
+		NotifSprite.transform.localPosition = startingPos;
+
+		float elapsedTime = 0;
+
+		while (elapsedTime < 0.25f) {
+		
+			NotifSprite.transform.localScale = Vector3.Lerp (Vector3.zero, scale1, elapsedTime / 0.25f);
+			elapsedTime += Time.deltaTime;
+
+			yield return null;
+		}
+
+		elapsedTime = 0;
+
+		while (elapsedTime < 0.125f) {
+
+			NotifSprite.transform.localScale = Vector3.Lerp (scale1, scale2, elapsedTime / 0.125f);
+			elapsedTime += Time.deltaTime;
+
+			yield return null;
+		}
+
+		yield return new WaitForSeconds (0.25f);
+
+		elapsedTime = 0;
+
+		while (elapsedTime <= 1f) {
+
+			NotifSprite.transform.localPosition = Vector3.Lerp (startingPos, endPos, elapsedTime / 1f);
+			sr.color = Color.Lerp (Color.white, Color.clear, elapsedTime / 1);
+			elapsedTime += Time.deltaTime;
+
+			yield return null;
+		}
 	}
 
 }
