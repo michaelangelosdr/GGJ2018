@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TeamScript : MonoBehaviour {
 
 	public float Patience_Value = 100;
-	public float patienceBaseDecrease = 2.5f;
+	public float patienceBaseDecrease = 1f;
 	public float Patience_Multiplier;
 	public float time_sec;
 	public Teamstate CurrentState;
@@ -31,6 +31,7 @@ public class TeamScript : MonoBehaviour {
 
 
 		StartCoroutine (ChangingStates ());
+
 	}
 
 //	public void GetBandwith(float givingBandwith)
@@ -100,10 +101,15 @@ public class TeamScript : MonoBehaviour {
 
 		float multiplier = Patience_Value / 100.0f;
 
-		if (multiplier >= 0.5f)
-			fillSR.color = new Color (1 - (Patience_Value - 50) / 50, 1.0f, 0.0f);
-		else
-			fillSR.color = new Color (1.0f, Patience_Value / 50, 0);
+		if (multiplier >= 0.5f) {
+			fillSR.color = Color.green;
+		} else if (multiplier >= 0.25f && multiplier < 0.5f) {
+			fillSR.color = new Color (1, 0.5f, 0);
+		}
+		else if (multiplier > 0 && multiplier < 0.25f) {
+			fillSR.color = Color.red;
+		}
+
 	}
 
 	public void Run_State(Teamstate curState)
@@ -222,7 +228,8 @@ public class TeamScript : MonoBehaviour {
 	{
 //		Debug.Log ("Zero Patience of : " + this.name + " GAME OVER");
 	}
-		
+
+
 	IEnumerator ChangingStates() {
 
 		yield return new WaitForEndOfFrame ();
@@ -230,11 +237,17 @@ public class TeamScript : MonoBehaviour {
 		yield return new WaitUntil (() => MediatorScript.gameStarted);
 
 		while (!MediatorScript.gameOver) {
+			yield return new WaitForEndOfFrame ();
 		
 //			Debug.Log (this.name + ": " + CurrentState.ToString ());
 
 			int rand = Random.Range (0, 4);
 
+			if (rand == 3 && MediatorScript.WatchingStates > 0) {
+				rand = Random.Range (0, 3);
+			} else if (rand == 3 && MediatorScript.WatchingStates <= 0)
+			{MediatorScript.LimitState ();
+		}
 //			Debug.Log ("Chosen Random: " + rand);
 
 			foreach (Teamstate t in System.Enum.GetValues(typeof(Teamstate))) {
@@ -244,6 +257,8 @@ public class TeamScript : MonoBehaviour {
 			}
 
 			yield return new WaitForSeconds (StateChangeTime);
+
+			MediatorScript.ResetStates ();
 		}
 	}
 
