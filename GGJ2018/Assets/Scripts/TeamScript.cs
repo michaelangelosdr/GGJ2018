@@ -10,6 +10,7 @@ public class TeamScript : MonoBehaviour {
 	public float Patience_Multiplier;
 	public float time_sec;
 	public Teamstate CurrentState;
+	public GameObject SpriteObject;
 
 	public static float StateChangeTime = 10;
 
@@ -71,15 +72,20 @@ public class TeamScript : MonoBehaviour {
 	{
 		switch (curState) {
 		case Teamstate.WORKING:
+				SpriteObject.GetComponent<SpriteAnimator> ().enabled = true;
+			
 			Patience_Multiplier = patienceBaseDecrease * 0.05f;
 			break;
 		case Teamstate.GAMING:
+			SpriteObject.GetComponent<SpriteAnimator> ().enabled = true;
 			Patience_Multiplier = patienceBaseDecrease * 0.1f;
 			break;
 		case Teamstate.UPLOADING:
+				SpriteObject.GetComponent<SpriteAnimator> ().enabled = true;
 			Patience_Multiplier = patienceBaseDecrease * 0.2f;
 			break;
 		case Teamstate.WATCHING:
+			SpriteObject.GetComponent<SpriteAnimator> ().enabled = false;
 			Patience_Multiplier = patienceBaseDecrease * 0.2f;
 			break;
 		}
@@ -94,8 +100,9 @@ public class TeamScript : MonoBehaviour {
 			return;
 
 		if (MediatorScript.powerFailure) {
-	
+			
 			//decrease by constant value
+			Patience_Value -= 0.1f;
 			return;
 		}
 
