@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MediatorScript : MonoBehaviour {
 
@@ -18,6 +19,18 @@ public class MediatorScript : MonoBehaviour {
 
 	public string command;
 
+	public Text timeleftUI;
+	public Text scoreUI;
+	public Text consoleUI;
+	public Text instructionUI;
+
+	public List<GameObject> tutorialPages;
+
+	int tutorialCounter;
+
+	bool showing;
+	bool tutorial;
+
 	void Awake() {
 
 		timeLeft = baseTime;
@@ -32,7 +45,7 @@ public class MediatorScript : MonoBehaviour {
 
 		Debug.Log ("Console Initialized");
 
-		StartCoroutine (StartGame ());
+		StartCoroutine (ShowTutorial ());
 	}
 
 	void Update () {
@@ -40,7 +53,118 @@ public class MediatorScript : MonoBehaviour {
 		ComputeBandwidth ();
 		HandleKeyInput ();
 
+		timeleftUI.text = "Time Left: " + timeLeft + "s";
+		scoreUI.text = "Score: " + ((int)score);
+
+		if (showing)
+			command = "";
+
+		if (command.Length > 0)
+			consoleUI.text = "> " + command;
+		else
+			consoleUI.text = "> _";
+
 //		Debug.Log (teamA.Patience_Value + ":" + teamB.Patience_Value + ":" + teamC.Patience_Value);
+	}
+
+	IEnumerator ShowTutorial() {
+
+		tutorialCounter = 0;
+		tutorial = true;
+
+		ShowInstruction ("Show tutorial? y or n");
+
+		yield return new WaitUntil (() => (Input.GetKeyDown (KeyCode.Return) && (command.ToLower().Equals ("y") || command.ToLower().Equals ("n"))));
+
+		Debug.Log (command);
+
+		if (command.ToLower ().Equals ("y")) {
+		
+			command = "";
+
+			yield return MachineTyping ("Hi!");
+			yield return MachineTyping ("You must be the new intern at PLDC!");
+			yield return MachineTyping ("You're job is to distribute bandwidth...", 0.05f);
+			yield return MachineTyping ("or something...");
+			yield return MachineTyping ("When you see the arrow (->)...");
+			yield return MessageWithConfirmation ("...type 'ok' then press enter to move on, ok?");
+			yield return MachineTyping ("Nice. ;)");
+			yield return MachineTyping ("I'll show you what teams are all about!", 0.5f);
+			yield return MessageWithConfirmation ("Each team has a patience bar.");
+			yield return MessageWithConfirmation ("The bar represents how close they are to rage quitting.");
+			yield return MachineTyping ("This symbol represents... ");
+			yield return MessageWithConfirmation ("...how much bandwith each team is getting.");
+			yield return MachineTyping ("This represents... ");
+			yield return MessageWithConfirmation ("...what state the team is currently in.");
+			yield return MessageWithConfirmation ("Each team has 3 states.");
+			yield return MessageWithConfirmation ("WORKING, GAMING, and UPLOADING.");
+			yield return MessageWithConfirmation ("WORKING states don't need much bandwith.");
+			yield return MessageWithConfirmation ("GAMING states need average bandwith.");
+			yield return MessageWithConfirmation ("UPLOADING states need all the bandwith they can get.");
+
+			yield return MachineTyping ("That's all, I guess.");
+			yield return MessageWithConfirmation ("I'm gonna start the game now, okay?");
+		}
+
+		command = "";
+
+		yield return MachineTyping ("Starting game in");
+
+		yield return MachineTyping ("3...", 0.5f);
+
+		yield return MachineTyping ("2...", 0.5f);
+
+		yield return MachineTyping ("1...", 0.5f);
+
+		yield return new WaitForSeconds (1);
+
+		SetInstruction ("Enter Command");
+
+		tutorial = false;
+		StartCoroutine (StartGame ());
+	}
+
+	IEnumerator WaitingConfirmation() {
+
+		yield return new WaitUntil (() => (Input.GetKeyDown (KeyCode.Return) && command.ToLower().Equals ("ok")));
+		command = "";
+	}
+
+	IEnumerator MessageWithConfirmation(string message) {
+
+		yield return MachineTyping (message + " ->");
+		yield return WaitingConfirmation ();
+	}
+
+	void SetInstruction(string message) {
+	
+		instructionUI.text = message;
+	}
+
+	void ShowInstruction(string message) {
+
+		StartCoroutine (MachineTyping (message));
+	}
+
+	IEnumerator MachineTyping(string message, float secondsToTake = 0.75f) {
+	
+		showing = true;
+
+		int counter = 0;
+
+		while(counter <= message.Length) {
+
+			instructionUI.text = message.Substring (0, counter++);
+
+			yield return new WaitForSeconds (0.025f);
+		}
+
+		instructionUI.text = message;
+
+		showing = false;
+
+		yield return new WaitForSeconds (secondsToTake);
+
 	}
 
 	void ComputeBandwidth() {
@@ -63,7 +187,9 @@ public class MediatorScript : MonoBehaviour {
 			} else if ((c == '\n') || (c == '\r')) {
 
 				//Debug.Log ("Command: " + command);
-				ProcessCommand ();
+
+				if(!tutorial)
+					ProcessCommand ();
 			} else {
 
 				command += c;
