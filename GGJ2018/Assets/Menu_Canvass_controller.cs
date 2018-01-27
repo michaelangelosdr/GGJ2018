@@ -12,9 +12,19 @@ public class Menu_Canvass_controller : MonoBehaviour {
 
 
 	public void Start_Clicked()
-	{Debug.Log ("Load Game");
-		Scenemanager.LoadScene ("Game");
+	{
+		Debug.Log ("Load Game");
 
+		StartCoroutine (GoingToGame ());
+	}
+
+	IEnumerator GoingToGame() {
+
+		BlackOverlay.Instance.FadeIn ();
+
+		yield return new WaitForSeconds (1);
+
+		Scenemanager.LoadScene ("Game");
 	}
 
 	public void Show_Option()
@@ -27,6 +37,7 @@ public class Menu_Canvass_controller : MonoBehaviour {
 
 	public void Exit_Game()
 	{
+
 		Application.Quit ();
 	}
 
