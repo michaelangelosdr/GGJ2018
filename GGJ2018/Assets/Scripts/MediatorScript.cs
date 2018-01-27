@@ -39,9 +39,9 @@ public class MediatorScript : MonoBehaviour {
 		command = "";
 		bandwidth = 2.0f;
 
-		teamA.bandwidth = 1;
-		teamB.bandwidth = 0.5f;
-		teamC.bandwidth = 0.5f;
+		teamA.bandwidth = 2;
+		teamB.bandwidth = 0f;
+		teamC.bandwidth = 0f;
 
 		Debug.Log ("Console Initialized");
 
@@ -82,6 +82,8 @@ public class MediatorScript : MonoBehaviour {
 		
 			command = "";
 
+			yield return MessageWithSpecificConfirmation ("type 'boi'", "boi");
+
 			yield return MachineTyping ("Hi!");
 			yield return MachineTyping ("You must be the new intern at PLDC!");
 			yield return MachineTyping ("You're job is to distribute bandwidth...", 0.05f);
@@ -93,17 +95,89 @@ public class MediatorScript : MonoBehaviour {
 			yield return MessageWithConfirmation ("Each team has a patience bar.");
 			yield return MessageWithConfirmation ("The bar represents how close they are to rage quitting.");
 			yield return MachineTyping ("This symbol represents... ");
-			yield return MessageWithConfirmation ("...how much bandwith each team is getting.");
+			yield return MessageWithConfirmation ("...how much bandwidth each team is getting.");
 			yield return MachineTyping ("This represents... ");
 			yield return MessageWithConfirmation ("...what state the team is currently in.");
 			yield return MessageWithConfirmation ("Each team has 3 states.");
 			yield return MessageWithConfirmation ("WORKING, GAMING, and UPLOADING.");
-			yield return MessageWithConfirmation ("WORKING states don't need much bandwith.");
-			yield return MessageWithConfirmation ("GAMING states need average bandwith.");
-			yield return MessageWithConfirmation ("UPLOADING states need all the bandwith they can get.");
+			yield return MessageWithConfirmation ("WORKING states don't need much bandwidth.");
+			yield return MessageWithConfirmation ("GAMING states need average bandwidth.");
+			yield return MessageWithConfirmation ("UPLOADING states need all the bandwidth they can get.");
+
+			yield return MachineTyping ("Next up: Commands.");
+			yield return MessageWithConfirmation ("Commands are made up of two parts.");
+			yield return MessageWithConfirmation ("These are the METHOD and the PARAMETER");
+			yield return MessageWithConfirmation ("The METHOD is the action you want to do.");
+			yield return MessageWithConfirmation ("The PARAMETER is which object to apply the action to.");
+			yield return MessageWithConfirmation ("One sample command is 'get x'.");
+			yield return MessageWithConfirmation ("In this example, 'get' is the METHOD...");
+			yield return MessageWithConfirmation ("and 'x' is the PARAMETER");
+			yield return MessageWithConfirmation ("The first command, 'get x', gets bandwidth from team x.");
+			yield return MessageWithConfirmation ("Team A has is taking up too much bandwidth! What a team.");
+			yield return MachineTyping ("What a team.", 1f);
+			yield return MessageWithSpecificConfirmation ("Type 'get a' to get bandwidth from team A.", "get a");
+
+			teamA.bandwidth -= 0.5f;
+
+			yield return MachineTyping ("Good Job! :D You're pretty good at this. ;)");
+			yield return MachineTyping ("(Not. :P)", 0.5f);
+			yield return MachineTyping ("ANYWAAaaay...");
+
+			yield return MessageWithConfirmation ("The next command is 'tunnel x'");
+			yield return MessageWithConfirmation ("'tunnel x' gives team x some bandwidth");
+			yield return MessageWithConfirmation ("NOTE: Check your bandwidth to see how much you can give out.");
+			yield return MessageWithConfirmation ("Looks like team B needs some!");
+			yield return MessageWithSpecificConfirmation ("Type 'tunnel b' to give team B bandwidth.", "tunnel b");
+
+			teamB.bandwidth += 0.5f;
+
+			yield return MachineTyping ("Another job well done! ^_^");
+			yield return MachineTyping ("... for a noob", 0.5f);
+			yield return MachineTyping ("Just kidding. ;)");
+
+			yield return MessageWithConfirmation ("The next command is 'spread x'");
+			yield return MessageWithConfirmation ("'spread x' spreads the bandwidth among the teams.");
+			yield return MessageWithConfirmation ("With team X getting 2 shares, and the rest getting 1 share.");
+			yield return MessageWithConfirmation ("Team C could use a bit of lovin' ;)");
+			yield return MessageWithSpecificConfirmation ("Type 'spread c' to distribute the bandwidth", "spread c");
+
+			teamA.bandwidth = 0.5f;
+			teamB.bandwidth = 0.5f;
+			teamC.bandwidth = 1f;
+					
+			yield return MachineTyping ("Nice! Now all the teams are loving you. :D");
+			yield return MachineTyping ("Too bad your crush doesn't. ;')", 0.5f);
+			yield return MachineTyping ("Just kidding.");
+			yield return MachineTyping ("Hahahahaha...", 1f);
+			yield return MachineTyping ("Ha...", 2f);
+
+			yield return MessageWithConfirmation ("The next command is 'max x'");
+			yield return MessageWithConfirmation ("'max x' gives team X all the bandwidth.");
+			yield return MachineTyping ("Heckin' ridiculous, if you ask me.");
+			yield return MessageWithConfirmation ("Let's give team A all the power now.");
+			yield return MessageWithConfirmation ("Since they love hogging all of it so much.");
+			yield return MessageWithSpecificConfirmation ("Type 'max a' give team A literally everything but manners.", "max a");
+
+			teamA.bandwidth = 2;
+			teamB.bandwidth = 0;
+			teamC.bandwidth = 0;
+
+			yield return MachineTyping ("I bet there heckin happy now. :/");
+			yield return MachineTyping ("Oops!", 0.5f);
+			yield return MachineTyping ("They're**");
+			yield return MachineTyping ("Sorry. Autocorrect", 1f);
+
+			// ADD POWER FAILURE
+
+			yield return MachineTyping ("The last command is-", 0f);
+			yield return MachineTyping ("Oh no! A power failure!", 0f);
+			yield return MessageWithSpecificConfirmation ("Quick! Type 'restart' to fix everything!", "restart");
+
+			yield return MachineTyping ("NICE ONE! <3");
+			yield return MessageWithConfirmation ("Just do that everytime a power failure happens, ok?");
 
 			yield return MachineTyping ("That's all, I guess.");
-			yield return MessageWithConfirmation ("I'm gonna start the game now, okay?");
+			yield return MessageWithConfirmation ("I'm gonna start the game now, okay? :'>");
 		}
 
 		command = "";
@@ -130,10 +204,22 @@ public class MediatorScript : MonoBehaviour {
 		command = "";
 	}
 
+	IEnumerator WaitingSpecificConfirmation(string message) {
+
+		yield return new WaitUntil (() => (Input.GetKeyDown (KeyCode.Return) && command.ToLower().Equals (message)));
+		command = "";
+	}
+
 	IEnumerator MessageWithConfirmation(string message) {
 
 		yield return MachineTyping (message + " ->");
 		yield return WaitingConfirmation ();
+	}
+
+	IEnumerator MessageWithSpecificConfirmation(string message, string conf) {
+
+		yield return MachineTyping (message);
+		yield return WaitingSpecificConfirmation (conf);
 	}
 
 	void SetInstruction(string message) {
@@ -228,7 +314,7 @@ public class MediatorScript : MonoBehaviour {
 		if (action.Equals ("route")) {
 
 			if(receiverTeam && secondaryReceiverTeam)
-				Route ();
+				Tunnel ();
 		} else if (action.Equals ("max")) {
 		
 			if (receiverTeam)
@@ -236,11 +322,15 @@ public class MediatorScript : MonoBehaviour {
 		} else if (action.Equals ("spread")) {
 		
 			if (receiverTeam)
-				Optimize ();
+				Spread ();
+		} else if (action.Equals ("get")) {
+
+			if(receiverTeam)
+				GetBandwidth ();
 		} else if (action.Equals ("restart")) {
-		
+
 			Restart ();
-		} else {
+		}  else {
 
 			Debug.Log ("INVALID COMMAND");
 			return;
@@ -295,12 +385,15 @@ public class MediatorScript : MonoBehaviour {
 		Debug.Log ("Secondary Reciever Team Set!");
 	}
 
-	void Route() {
-		
-		Debug.Log ("ROUTE");
+	void Tunnel() {
 
-		receiverTeam.bandwidth += secondaryReceiverTeam.bandwidth;
-		secondaryReceiverTeam.bandwidth = 0;
+		// Give 0.5f each time
+		// Get function
+
+		Debug.Log ("TUNNEL");
+
+		if(bandwidth >= 0.5f)
+			receiverTeam.bandwidth += 0.5f;
 	}
 
 	void Maximum() {
@@ -312,7 +405,7 @@ public class MediatorScript : MonoBehaviour {
 		receiverTeam.bandwidth = 2;
 	}
 
-	void Optimize() {
+	void Spread() {
 		
 		Debug.Log ("OPTIMIZE");
 
@@ -321,6 +414,14 @@ public class MediatorScript : MonoBehaviour {
 		teamC.bandwidth = 0.5f;
 
 		receiverTeam.bandwidth = 1;
+	}
+
+	void GetBandwidth() {
+
+		if (receiverTeam.bandwidth > 0.5f) {
+		
+			receiverTeam.bandwidth -= 0.5f;
+		}
 	}
 
 	void Restart() {
