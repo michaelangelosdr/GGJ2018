@@ -10,11 +10,16 @@ public class Menu_Canvass_controller : MonoBehaviour {
 	[SerializeField] GGJSceneManager Scenemanager;
 	[SerializeField] GameObject Highscore_Window;
 
+	void Start() {
+
+		BGMScript.Instance.PlayMainMenuBGM ();
+	}
 
 	public void Start_Clicked()
 	{
 		Debug.Log ("Load Game");
 
+		SFXScript.Instance.PlayClickSound ();
 		StartCoroutine (GoingToGame ());
 	}
 
@@ -23,6 +28,8 @@ public class Menu_Canvass_controller : MonoBehaviour {
 		BlackOverlay.Instance.FadeIn ();
 
 		yield return new WaitForSeconds (1);
+
+		BGMScript.Instance.PlayGameBGM ();
 
 		Scenemanager.LoadScene ("Game");
 	}
@@ -38,6 +45,7 @@ public class Menu_Canvass_controller : MonoBehaviour {
 	public void Exit_Game()
 	{
 
+		SFXScript.Instance.PlayClickSound ();
 		Application.Quit ();
 	}
 

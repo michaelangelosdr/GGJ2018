@@ -16,7 +16,7 @@ public class TeamScript : MonoBehaviour {
 
 	public List<GameObject> WifiSignal;
 
-	public static float StateChangeTime = 5;
+	public static float StateChangeTime = 10;
 
 	public float bandwidth;
 

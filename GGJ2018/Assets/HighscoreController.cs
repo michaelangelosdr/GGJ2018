@@ -29,7 +29,8 @@ public class HighscoreController : MonoBehaviour {
 	}
 
 	public void HighscoreClicked() {
-	
+
+		SFXScript.Instance.PlayClickSound ();
 		showing = !showing;
 	}
 }
