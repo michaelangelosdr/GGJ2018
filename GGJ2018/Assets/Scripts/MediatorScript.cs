@@ -145,16 +145,24 @@ public class MediatorScript : MonoBehaviour {
 			yield return MessageWithConfirmation ("..press enter to move on, ok?");
 			yield return MachineTyping ("Nice. ;)");
 			yield return MachineTyping ("I'll show you what teams are all about!", 0.5f);
+
+			ShowNextTutorial ();
+
 			yield return MessageWithConfirmation ("Each team has a PATIENCE BAR.");
 			yield return MachineTyping ("If even one of them loses their patience..");
 			yield return MessageWithConfirmation ("It's GAME OVER");
 			yield return MessageWithConfirmation ("This shows the amount of bandwidth a team has.");
+
+			ShowNextTutorial ();
+
 			yield return MessageWithConfirmation ("This represents the team's state.");
 			yield return MachineTyping ("Each team has 4 states.");
 			yield return MessageWithConfirmation ("WORKING -> don't need much bandwidth.");
 			yield return MessageWithConfirmation ("GAMING -> need average bandwidth.");
 			yield return MessageWithConfirmation ("UPLOADING -> need all the bandwidth they can get.");
 			yield return MessageWithConfirmation ("WATCHING -> must get all it can.");
+
+			HideTutorial ();
 
 			yield return MachineTyping ("Next up. Commands.");
 			/*yield return MessageWithConfirmation ("Commands are made up of two parts.");
@@ -248,7 +256,7 @@ public class MediatorScript : MonoBehaviour {
 
 		command = "";
 
-		yield return MachineTyping ("Starting game in", 0.25f);
+		yield return MachineTyping ("Starting game in", 0.5f);
 
 		yield return MachineTyping ("3...", 0.5f);
 
@@ -260,6 +268,19 @@ public class MediatorScript : MonoBehaviour {
 
 		tutorial = false;
 		StartCoroutine (StartGame ());
+	}
+
+	void ShowNextTutorial() {
+	
+		HideTutorial ();
+
+		tutorialPages [tutorialCounter++].SetActive(true);
+	}
+
+	void HideTutorial() {
+
+		foreach (GameObject g in tutorialPages)
+			g.SetActive (false);
 	}
 
 	IEnumerator WaitingConfirmation() {
@@ -296,7 +317,7 @@ public class MediatorScript : MonoBehaviour {
 		StartCoroutine (MachineTyping (message));
 	}
 
-	IEnumerator MachineTyping(string message, float secondsToTake = 0.75f) {
+	IEnumerator MachineTyping(string message, float secondsToTake = 1f) {
 	
 		showing = true;
 
@@ -554,6 +575,7 @@ public class MediatorScript : MonoBehaviour {
 		gameOver = true;
 
 		usingHelp = false;
+		powerFailure = false;
 		gameOverOverlay.SetActive (true);
 	}
 
