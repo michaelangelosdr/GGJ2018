@@ -96,7 +96,7 @@ public class MediatorScript : MonoBehaviour {
 
 			yield return MachineTyping ("Hi!");
 			yield return MachineTyping ("You must be the new intern at PLDC!");
-			yield return MachineTyping ("You're job is to distribute bandwidth...", 0.05f);
+			yield return MachineTyping ("You're job is to transmit bandwidth...", 0.05f);
 			yield return MachineTyping ("or something...");
 			yield return MachineTyping ("When you see the arrow (->)...");
 			yield return MessageWithConfirmation ("...type 'ok' then press enter to move on, ok?");
@@ -116,14 +116,14 @@ public class MediatorScript : MonoBehaviour {
 			yield return MessageWithConfirmation ("WATCHING must ABSOLUTELY get all it can.");
 
 			yield return MachineTyping ("Next up: Commands.");
-			yield return MessageWithConfirmation ("Commands are made up of two parts.");
+			/*yield return MessageWithConfirmation ("Commands are made up of two parts.");
 			yield return MessageWithConfirmation ("These are the METHOD and the PARAMETER");
 			yield return MessageWithConfirmation ("The METHOD is the action you want to do.");
 			yield return MessageWithConfirmation ("The PARAMETER is which object to apply the action to.");
 			yield return MessageWithConfirmation ("One sample command is 'get x'.");
 			yield return MessageWithConfirmation ("In this example, 'get' is the METHOD...");
 			yield return MessageWithConfirmation ("and 'x' is the PARAMETER");
-			yield return MessageWithConfirmation ("The first command, 'get x', gets bandwidth from team x.");
+			yield return MessageWithConfirmation ("The first command, 'get x', gets bandwidth from team x.");*/
 			yield return MessageWithConfirmation ("Team A has is taking up too much bandwidth! What a team.");
 			yield return MachineTyping ("What a team.", 1f);
 			yield return MessageWithSpecificConfirmation ("Type 'get a' to get bandwidth from team A.", "get a");
@@ -135,10 +135,10 @@ public class MediatorScript : MonoBehaviour {
 			yield return MachineTyping ("ANYWAAaaay...");
 
 			yield return MessageWithConfirmation ("The next command is 'tunnel x'");
-			yield return MessageWithConfirmation ("'tunnel x' gives team x some bandwidth");
-			yield return MessageWithConfirmation ("NOTE: Check to see how much you can give out.");
-			yield return MessageWithConfirmation ("Looks like team B needs some!");
-			yield return MessageWithSpecificConfirmation ("Type 'tunnel b' to give team B bandwidth.", "tunnel b");
+			//yield return MessageWithConfirmation ("'tunnel x' transmits bandwith to team x");
+			//yield return MessageWithConfirmation ("NOTE: Check to see how much you can give out.");
+			//yield return MessageWithConfirmation ("Looks like team B needs some!");
+			yield return MessageWithSpecificConfirmation ("Type 'tunnel b' to transmit some bandwith to Team B.", "tunnel b");
 
 			teamB.bandwidth += 0.5f;
 
@@ -148,7 +148,7 @@ public class MediatorScript : MonoBehaviour {
 
 			yield return MessageWithConfirmation ("The next command is 'spread x'");
 			yield return MessageWithConfirmation ("'spread x' spreads the bandwidth among the teams.");
-			yield return MessageWithConfirmation ("With team X getting 1 share, and the rest getting 0.5 shares.");
+			yield return MessageWithConfirmation ("With team X getting more than the other teams");
 			yield return MessageWithConfirmation ("Team C could use a bit of lovin' ;)");
 			yield return MessageWithSpecificConfirmation ("Type 'spread c' to distribute the bandwidth", "spread c");
 
@@ -163,9 +163,9 @@ public class MediatorScript : MonoBehaviour {
 			yield return MachineTyping ("Ha...", 2f);
 
 			yield return MessageWithConfirmation ("The next command is 'max x'");
-			yield return MessageWithConfirmation ("'max x' gives team X all the bandwidth.");
+			yield return MessageWithConfirmation ("'max x' transmits all the bandwith team x.");
 			yield return MachineTyping ("Heckin' ridiculous, if you ask me.");
-			yield return MessageWithConfirmation ("Let's give team A all the power now.");
+			yield return MessageWithConfirmation ("Let's give team A all the bandwith now.");
 			yield return MessageWithConfirmation ("Since they love hogging all of it so much.");
 			yield return MessageWithSpecificConfirmation ("Type 'max a' give team A literally everything but manners.", "max a");
 
@@ -174,9 +174,9 @@ public class MediatorScript : MonoBehaviour {
 			teamC.bandwidth = 0;
 
 			yield return MachineTyping ("I bet there heckin happy now. :/");
-			yield return MachineTyping ("Oops!", 0.5f);
-			yield return MachineTyping ("They're**");
-			yield return MachineTyping ("Sorry. Autocorrect", 1f);
+			//yield return MachineTyping ("Oops!", 0.5f);
+			//yield return MachineTyping ("They're**");
+			//yield return MachineTyping ("Sorry. Autocorrect", 1f);
 
 			// ADD POWER FAILURE
 
@@ -184,10 +184,10 @@ public class MediatorScript : MonoBehaviour {
 			yield return MachineTyping ("Oh no! A power failure!", 0f);
 			yield return MessageWithSpecificConfirmation ("Quick! Type 'restart' to fix everything!", "restart");
 
-			yield return MachineTyping ("NICE ONE! <3");
+			//yield return MachineTyping ("NICE ONE! <3");
 			yield return MessageWithConfirmation ("Just do that everytime a power failure happens, ok?");
 
-			yield return MachineTyping ("That's all, I guess.");
+			yield return MachineTyping ("That's all, Make sure you transmit evenly okay?!");
 			yield return MessageWithConfirmation ("I'm gonna start the game now, okay? :'>");
 		}
 
@@ -401,7 +401,7 @@ public class MediatorScript : MonoBehaviour {
 
 	void GetBandwidth() {
 
-		if (receiverTeam.bandwidth > 0.5f) {
+		if (receiverTeam.bandwidth >= 0.5f) {
 		
 			receiverTeam.bandwidth -= 0.5f;
 		}
