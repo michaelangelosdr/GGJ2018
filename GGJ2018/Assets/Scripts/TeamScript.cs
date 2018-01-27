@@ -86,9 +86,18 @@ public class TeamScript : MonoBehaviour {
 		//}
 		//else
 		//{
-			Be_Impatient ();
-			IncreasePatience ();
-		//}
+
+		if (!MediatorScript.gameStarted)
+			return;
+
+		if (MediatorScript.powerFailure) {
+	
+			//decrease by constant value
+			return;
+		}
+
+		Be_Impatient ();
+		IncreasePatience ();
 	}
 
 	private void Be_Impatient()
@@ -172,6 +181,10 @@ public class TeamScript : MonoBehaviour {
 	}
 		
 	IEnumerator ChangingStates() {
+
+		yield return new WaitForEndOfFrame ();
+
+		yield return new WaitUntil (() => MediatorScript.gameStarted);
 
 		while (true) {
 		
