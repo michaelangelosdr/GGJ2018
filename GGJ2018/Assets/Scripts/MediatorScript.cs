@@ -11,14 +11,12 @@ public class MediatorScript : MonoBehaviour {
 	TeamScript receiverTeam;
 	TeamScript secondaryReceiverTeam;
 
-	[SerializeField] ConsoleScript consoleScript;
-
 	public float baseTime;
-	float timeLeft;
+	public float timeLeft;
+	public float score;
 	float bandwidth;
-	float score;
 
-	string command;
+	public string command;
 
 	void Awake() {
 
@@ -51,13 +49,6 @@ public class MediatorScript : MonoBehaviour {
 	}
 
 	void HandleKeyInput() {
-
-		if (consoleScript) {
-			if (command.Length > 0)
-				consoleScript.SetText ("> " + command);
-			else
-				consoleScript.SetText ("> _");
-		}
 
 		foreach (char c in Input.inputString) {
 
