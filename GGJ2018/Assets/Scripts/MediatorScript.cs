@@ -63,6 +63,9 @@ public class MediatorScript : MonoBehaviour {
 
 	void Awake() {
 
+		if(BlackOverlay.Instance != null)
+		BlackOverlay.Instance.FadeOut ();
+
 		timeLeft = baseTime;
 		score = 0;
 		WatchingStates = 0;
@@ -153,16 +156,15 @@ public class MediatorScript : MonoBehaviour {
 
 			yield return MachineTyping ("Hi!");
 			yield return MachineTyping ("You must be the new intern at PLDC!");
-			yield return MachineTyping ("You're job is simply to TRANSMIT BANDWIDTH...", 0.05f);
-			yield return MachineTyping ("When you see the arrow (->)..");
-			yield return MessageWithConfirmation ("..press enter to move on, ok?");
+			yield return MachineTyping ("You're job is simply to TRANSMIT BANDWIDTH to GGJammers", 0.5f);
+			yield return MessageWithConfirmation ("press enter to view next messages!");
 			yield return MachineTyping ("Nice. ;)");
-			yield return MachineTyping ("I'll show you what teams are all about!", 0.5f);
+			//yield return MachineTyping ("I'll show you what teams are all about!", 0.5f);
 
 			ShowNextTutorial ();
 
 			yield return MessageWithConfirmation ("Each team has a PATIENCE BAR.");
-			yield return MachineTyping ("If even one of them loses their patience..");
+			yield return MachineTyping ("If one of them loses their patience..");
 			yield return MessageWithConfirmation ("It's GAME OVER");
 			yield return MessageWithConfirmation ("This shows the amount of bandwidth a team has.");
 
