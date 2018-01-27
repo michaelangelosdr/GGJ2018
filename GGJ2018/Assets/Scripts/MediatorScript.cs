@@ -101,7 +101,7 @@ public class MediatorScript : MonoBehaviour {
 			GameOver ();
 
 		if (Input.GetKeyDown (KeyCode.Tab))
-			usingHelp = !usingHelp;
+			HelpPressed ();
 
 		LerpHelpWindow ();
 
@@ -124,7 +124,7 @@ public class MediatorScript : MonoBehaviour {
 		tutorialCounter = 0;
 		tutorial = true;
 
-		ShowInstruction ("Show tutorial? y or n");
+		ShowInstruction ("Show tutorial? (y or n)");
 
 		yield return new WaitUntil (() => (Input.GetKeyDown (KeyCode.Return) && (command.ToLower().Equals ("y") || command.ToLower().Equals ("n"))));
 
@@ -140,26 +140,23 @@ public class MediatorScript : MonoBehaviour {
 
 			yield return MachineTyping ("Hi!");
 			yield return MachineTyping ("You must be the new intern at PLDC!");
-			yield return MachineTyping ("You're job is to transmit bandwidth...", 0.05f);
-			yield return MachineTyping ("or something...");
-			yield return MachineTyping ("When you see the arrow (->)...");
-			yield return MessageWithConfirmation ("...type 'ok' then press enter to move on, ok?");
+			yield return MachineTyping ("You're job is simply to TRANSMIT BANDWIDTH...", 0.05f);
+			yield return MachineTyping ("When you see the arrow (->)..");
+			yield return MessageWithConfirmation ("..press enter to move on, ok?");
 			yield return MachineTyping ("Nice. ;)");
 			yield return MachineTyping ("I'll show you what teams are all about!", 0.5f);
-			yield return MessageWithConfirmation ("Each team has a patience bar.");
-			yield return MessageWithConfirmation ("The bar represents how close they are to rage quitting.");
-			yield return MachineTyping ("This symbol represents... ");
-			yield return MessageWithConfirmation ("...how much bandwidth each team is getting.");
-			yield return MachineTyping ("This represents... ");
-			yield return MessageWithConfirmation ("...what state the team is currently in.");
+			yield return MessageWithConfirmation ("Each team has a PATIENCE BAR.");
+			yield return MachineTyping ("If even one of them loses their patience..");
+			yield return MessageWithConfirmation ("It's GAME OVER");
+			yield return MessageWithConfirmation ("This shows the amount of bandwidth a team has.");
+			yield return MessageWithConfirmation ("This represents the team's state.");
 			yield return MachineTyping ("Each team has 4 states.");
-			yield return MessageWithConfirmation ("WORKING, GAMING, UPLOADING, and WATCHING.");
-			yield return MessageWithConfirmation ("WORKING states don't need much bandwidth.");
-			yield return MessageWithConfirmation ("GAMING states need average bandwidth.");
-			yield return MessageWithConfirmation ("UPLOADING states need all the bandwidth they can get.");
-			yield return MessageWithConfirmation ("WATCHING must ABSOLUTELY get all it can.");
+			yield return MessageWithConfirmation ("WORKING -> don't need much bandwidth.");
+			yield return MessageWithConfirmation ("GAMING -> need average bandwidth.");
+			yield return MessageWithConfirmation ("UPLOADING -> need all the bandwidth they can get.");
+			yield return MessageWithConfirmation ("WATCHING -> must get all it can.");
 
-			yield return MachineTyping ("Next up: Commands.");
+			yield return MachineTyping ("Next up. Commands.");
 			/*yield return MessageWithConfirmation ("Commands are made up of two parts.");
 			yield return MessageWithConfirmation ("These are the METHOD and the PARAMETER");
 			yield return MessageWithConfirmation ("The METHOD is the action you want to do.");
@@ -169,30 +166,29 @@ public class MediatorScript : MonoBehaviour {
 			yield return MessageWithConfirmation ("and 'x' is the PARAMETER");
 			yield return MessageWithConfirmation ("The first command, 'get x', gets bandwidth from team x.");*/
 			yield return MachineTyping ("Team A has is taking up too much bandwidth!");
-			yield return MachineTyping ("What a team.", 1f);
 			yield return MessageWithSpecificConfirmation ("Type 'get a' to get bandwidth from team A.", "get a");
 
 			teamA.bandwidth -= 0.5f;
 
-			yield return MachineTyping ("Good Job! :D You're pretty good at this. ;)");
-			yield return MachineTyping ("(Not. :P)", 0.5f);
-			yield return MachineTyping ("ANYWAAaaay...");
+//			yield return MachineTyping ("Good Job! :D You're pretty good at this. ;)");
+//			yield return MachineTyping ("(Not. :P)", 0.5f);
+//			yield return MachineTyping ("ANYWAAaaay...");
 
-			yield return MachineTyping ("The next command is 'tunnel x'");
+//			yield return MachineTyping ("The next command is 'tunnel x'");
 			//yield return MessageWithConfirmation ("'tunnel x' transmits bandwith to team x");
 			//yield return MessageWithConfirmation ("NOTE: Check to see how much you can give out.");
-			//yield return MessageWithConfirmation ("Looks like team B needs some!");
-			yield return MessageWithSpecificConfirmation ("Type 'tunnel b' to transmit some bandwith to Team B.", "tunnel b");
+			yield return MessageWithConfirmation ("Looks like team B needs some bandwidth!");
+			yield return MessageWithSpecificConfirmation ("Type 'tunnel b' to transmit some to team B.", "tunnel b");
 
 			teamB.bandwidth += 0.5f;
 
-			yield return MachineTyping ("Another job well done! ^_^");
-			yield return MachineTyping ("... for a noob", 0.5f);
-			yield return MachineTyping ("Just kidding. ;)");
+//			yield return MachineTyping ("Another job well done! ^_^");
+//			yield return MachineTyping ("... for a noob", 0.5f);
+//			yield return MachineTyping ("Just kidding. ;)");
 
-			yield return MachineTyping ("The next command is 'spread x'");
-			yield return MachineTyping ("'spread x' spreads the bandwidth among the teams...");
-			yield return MessageWithConfirmation ("...with team X getting more than the other teams");
+//			yield return MachineTyping ("The next command is 'spread x'");
+//			yield return MachineTyping ("'spread x' spreads the bandwidth among the teams...");
+//			yield return MessageWithConfirmation ("...with team X getting more than the other teams");
 			yield return MachineTyping ("Team C could use a bit of lovin' ;)");
 			yield return MessageWithSpecificConfirmation ("Type 'spread c' to distribute the bandwidth", "spread c");
 
@@ -200,24 +196,28 @@ public class MediatorScript : MonoBehaviour {
 			teamB.bandwidth = 0.5f;
 			teamC.bandwidth = 1f;
 					
-			yield return MachineTyping ("Nice! Now all the teams are loving you. :D");
-//			yield return MachineTyping ("Too bad your crush doesn't. ;')", 0.5f);
-//			yield return MachineTyping ("Just kidding.");
-			yield return MachineTyping ("Hahahahaha...", 1f);
-			yield return MachineTyping ("Ha...", 2f);
+			yield return MachineTyping ("'spread x' distributes bandwidth among the teams..");
+			yield return MessageWithConfirmation ("..with team X getting more than the others");
 
-			yield return MachineTyping ("The next command is 'max x'");
-			yield return MessageWithConfirmation ("'max x' transmits all the bandwith team x.");
-			yield return MachineTyping ("Heckin' ridiculous, if you ask me.");
-			yield return MachineTyping ("Let's give team A all the bandwith now.");
-			yield return MachineTyping ("Since they love hogging all of it so much.");
-			yield return MessageWithSpecificConfirmation ("Type 'max a' give team A literally everything but manners.", "max a");
+//			yield return MachineTyping ("Nice! Now all the teams are loving you. :D");
+////		yield return MachineTyping ("Too bad your crush doesn't. ;')", 0.5f);
+////		yield return MachineTyping ("Just kidding.");
+//			yield return MachineTyping ("Hahahahaha...", 1f);
+//			yield return MachineTyping ("Ha...", 2f);
+
+//			yield return MachineTyping ("The next command is 'max x'");
+//			yield return MessageWithConfirmation ("'max x' transmits all the bandwith team x.");
+//			yield return MachineTyping ("Heckin' ridiculous, if you ask me.");
+//			yield return MachineTyping ("Let's give team A all the bandwith now.");
+			yield return MachineTyping ("If needed, you can give a team all the bandwidth..");
+			yield return MessageWithConfirmation ("..by using the 'max' command.");
+			yield return MessageWithSpecificConfirmation ("Type 'max a' give team A all the bandwidth.", "max a");
 
 			teamA.bandwidth = 2;
 			teamB.bandwidth = 0;
 			teamC.bandwidth = 0;
 
-			yield return MachineTyping ("I bet they're heckin happy now. :/");
+//			yield return MachineTyping ("I bet they're heckin happy now. :/");
 			//yield return MachineTyping ("Oops!", 0.5f);
 			//yield return MachineTyping ("They're**");
 			//yield return MachineTyping ("Sorry. Autocorrect", 1f);
@@ -226,19 +226,29 @@ public class MediatorScript : MonoBehaviour {
 			// ADD POWER FAILURE
 
 			yield return MachineTyping ("The last command is-", 0.5f);
+
+			powerFailure = true;
+
 			yield return MachineTyping ("Oh no! A power failure!", 0.75f);
+
 			yield return MessageWithSpecificConfirmation ("Quick! Type 'restart' to fix everything!", "restart");
+
+			Restart ();
 
 			yield return MachineTyping ("*Phew* That was a close one.");
 			yield return MessageWithConfirmation ("Just do that everytime a power failure happens, ok?");
 
-			yield return MachineTyping ("That's all, Make sure you transmit evenly!");
+			yield return MachineTyping ("A few last notes:");
+			yield return MessageWithConfirmation ("Press the 'up arrow' to retype your last command.");
+			yield return MessageWithConfirmation ("Press 'tab' to bring out a cheat sheet.");
+
+			yield return MachineTyping ("That's all, Make sure you transmit appropriately!");
 			yield return MessageWithConfirmation ("I'm gonna start the game now, okay? :D" );
 		}
 
 		command = "";
 
-		yield return MachineTyping ("Starting game in");
+		yield return MachineTyping ("Starting game in", 0.25f);
 
 		yield return MachineTyping ("3...", 0.5f);
 
@@ -246,7 +256,7 @@ public class MediatorScript : MonoBehaviour {
 
 		yield return MachineTyping ("1...", 0.5f);
 
-		SetInstruction ("Enter Command");
+		SetInstruction ("ENTER COMMAND");
 
 		tutorial = false;
 		StartCoroutine (StartGame ());
@@ -254,7 +264,7 @@ public class MediatorScript : MonoBehaviour {
 
 	IEnumerator WaitingConfirmation() {
 
-		yield return new WaitUntil (() => (Input.GetKeyDown (KeyCode.Return) && command.ToLower().Equals ("ok")));
+		yield return new WaitUntil (() => (Input.GetKeyDown (KeyCode.Return) && !showing));
 		command = "";
 	}
 
@@ -310,6 +320,11 @@ public class MediatorScript : MonoBehaviour {
 	void ComputeBandwidth() {
 
 		bandwidth = 2 - teamA.bandwidth - teamB.bandwidth - teamC.bandwidth;
+	}
+
+	public void HelpPressed() {
+
+		usingHelp = !usingHelp;
 	}
 
 	void HandleKeyInput() {
@@ -371,18 +386,30 @@ public class MediatorScript : MonoBehaviour {
 	
 		if (action.Equals ("tunnel")) {
 
+			if (powerFailure)
+				return;
+
 			if(receiverTeam)
 				Tunnel ();
 		} else if (action.Equals ("max")) {
-		
+
+			if (powerFailure)
+				return;
+			
 			if (receiverTeam)
 				Maximum ();
 		} else if (action.Equals ("spread")) {
-		
+
+			if (powerFailure)
+				return;
+			
 			if (receiverTeam)
 				Spread ();
 		} else if (action.Equals ("get")) {
 
+			if (powerFailure)
+				return;
+			
 			if(receiverTeam)
 				GetBandwidth ();
 		} else if (action.Equals ("restart")) {
@@ -391,6 +418,7 @@ public class MediatorScript : MonoBehaviour {
 		}  else {
 
 			Debug.Log ("INVALID COMMAND");
+			TemporaryMessage ("INVALID COMMAND");
 			return;
 		}
 
@@ -421,9 +449,6 @@ public class MediatorScript : MonoBehaviour {
 	}
 
 	void Tunnel() {
-
-		// Give 0.5f each time
-		// Get function
 
 		Debug.Log ("TUNNEL");
 
@@ -493,6 +518,7 @@ public class MediatorScript : MonoBehaviour {
 
 	void StartPowerFailure() {
 
+		TemporaryMessage ("POWER FAILURE!");
 		Debug.Log ("POWER FAILURE");
 
 		//TODO: Add overlay
@@ -527,6 +553,21 @@ public class MediatorScript : MonoBehaviour {
 
 		gameOver = true;
 
+		usingHelp = false;
 		gameOverOverlay.SetActive (true);
+	}
+
+	void TemporaryMessage(string temp) {
+
+		StartCoroutine (ShowingTemporaryMessage (temp));
+	}
+
+	IEnumerator ShowingTemporaryMessage(string temp) {
+		
+		SetInstruction (temp);
+
+		yield return new WaitForSeconds (1);
+
+		SetInstruction ("ENTER COMMAND");
 	}
 }
