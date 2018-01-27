@@ -14,9 +14,11 @@ public class MediatorScript : MonoBehaviour {
 	public float baseTime;
 	public float timeLeft;
 	public float score;
-	float powerFailureInterval = 5;
-	float powerFailureChance = 100;
+	float powerFailureInterval = 15;
+	float powerFailureChance = 20;
 	float bandwidth;
+
+
 
 	public string previousCommand = "";
 	public string command;
@@ -63,7 +65,7 @@ public class MediatorScript : MonoBehaviour {
 
 		timeLeft = baseTime;
 		score = 0;
-
+		WatchingStates = 0;
 		command = "";
 		bandwidth = 2.0f;
 
@@ -133,6 +135,7 @@ public class MediatorScript : MonoBehaviour {
 		gameStarted = false;
 		tutorialCounter = 0;
 		tutorial = true;
+
 
 		ShowInstruction ("Show tutorial? (y or n)");
 
@@ -265,6 +268,10 @@ public class MediatorScript : MonoBehaviour {
 		}
 
 		command = "";
+
+		teamA.bandwidth = 1;
+		teamB.bandwidth = 0.5f;
+		teamC.bandwidth = 0.5f;
 
 		yield return MachineTyping ("Starting game in", 0.5f);
 
@@ -689,4 +696,18 @@ public class MediatorScript : MonoBehaviour {
 
 		usedTrail.SetActive (false);
 	}
+
+
+
+	public static int WatchingStates;
+	public static void LimitState()
+	{		
+		WatchingStates++;
+	}
+	public static void ResetStates()
+	{
+		WatchingStates = 0;
+	}
+		
+
 }
