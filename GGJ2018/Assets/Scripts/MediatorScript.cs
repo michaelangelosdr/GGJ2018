@@ -720,6 +720,8 @@ public class MediatorScript : MonoBehaviour {
 		
 			yield return new WaitForSeconds (powerFailureInterval);
 
+			yield return new WaitUntil (() => !usingHelp);
+
 			int rand = Random.Range (0, 101);
 
 			if(rand <= powerFailureChance)
