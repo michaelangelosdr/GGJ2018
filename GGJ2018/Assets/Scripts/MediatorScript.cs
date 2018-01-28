@@ -435,14 +435,19 @@ public class MediatorScript : MonoBehaviour {
 	}
 
 	public void HelpPressed() {
-
+		
 		usingHelp = !usingHelp;
+
+		Debug.Log ("Help pressed! " + usingHelp);
 	}
 
 	void HandleKeyInput() {
 
-		if (usingHelp || gameOver)
+		if (usingHelp || gameOver) {
+		
+			Debug.Log (usingHelp);
 			return;
+		}
 
 		if (Input.GetKeyDown (KeyCode.UpArrow))
 			command = previousCommand;
