@@ -12,11 +12,12 @@ public class TeamScript : MonoBehaviour {
 	public Teamstate CurrentState;
 	public GameObject SpriteObject;
 	public GameObject NotifSprite;
+	private int MAX_INDEX;
 
 
 	public List<GameObject> WifiSignal;
 
-	public static float StateChangeTime = 10;
+	public static float StateChangeTime = 15.0f;
 
 	public float bandwidth;
 
@@ -25,7 +26,8 @@ public class TeamScript : MonoBehaviour {
 	public TextMesh textMesh;
 	public TextMesh nameMesh;
 
-	public SpriteRenderer fillSR;
+	public SpriteRenderer fillSR; 
+
 
 	public GameObject angryVein;
 
@@ -242,27 +244,48 @@ public class TeamScript : MonoBehaviour {
 			yield return new WaitForEndOfFrame ();
 		
 //			Debug.Log (this.name + ": " + CurrentState.ToString ());
+			int rand = Random.Range (0, MAX_INDEX);
+			if (MediatorScript.StatesChange_Counter >= 9) {
+				MAX_INDEX = 1;
+			} else {
 
-			int rand = Random.Range (0, 4);
+				if (MediatorScript.timeLeft > 165) {
+					MAX_INDEX = 2;
+				} else if (MediatorScript.timeLeft < 165) {
+					MAX_INDEX = 4;
+				}
 
-			if (rand == 3 && MediatorScript.WatchingStates > 0) {
-				rand = Random.Range (0, 3);
-			} else if (rand == 3 && MediatorScript.WatchingStates <= 0)
-			{MediatorScript.LimitState ();
-		}
+
+			
+
+				if (rand == 3 && MediatorScript.WatchingStates > 0) {
+					rand = Random.Range (0, 3);
+				} else if (rand == 3 && MediatorScript.WatchingStates <= 0) {
+					MediatorScript.LimitState ();
+				}
+			
+			}
 //			Debug.Log ("Chosen Random: " + rand);
 
 			foreach (Teamstate t in System.Enum.GetValues(typeof(Teamstate))) {
 			
-				if (rand == (int)t)
+				if (rand == (int)t) {
 					CurrentState = t;
+				}
 			}
 
 			yield return new WaitForSeconds (StateChangeTime);
+			if (MediatorScript.StatesChange_Counter <9) {
+				MediatorScript.StatesChange_Counter++;
+			} else if (MediatorScript.StatesChange_Counter >=9) {
+				MediatorScript.StatesChange_Counter = 0;
+			}
+			Debug.Log (MediatorScript.StatesChange_Counter);
 			ShowChangeState ();
 			MediatorScript.ResetStates ();
 		}
 	}
+		
 
 
 	public void ShowChangeState()
