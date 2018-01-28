@@ -64,6 +64,8 @@ public class MediatorScript : MonoBehaviour {
 	public Transform bTran;
 	public Transform cTran;
 
+	bool saved = false;
+
 	void Awake() {
 
 		if(BlackOverlay.Instance != null)
@@ -75,6 +77,10 @@ public class MediatorScript : MonoBehaviour {
 		command = "";
 		bandwidth = 2.0f;
 
+		gameStarted = false;
+		powerFailure = false;
+		gameOver = false;
+
 		teamA.bandwidth = 2;
 		teamB.bandwidth = 0f;
 		teamC.bandwidth = 0f;
@@ -84,11 +90,16 @@ public class MediatorScript : MonoBehaviour {
 		StartCoroutine (ShowTutorial ());
 	}
 
+	int GetScore() {
+
+		return (Mathf.CeilToInt (score));
+	}
+
 	void Update () {
 
 		if (Input.GetKey (KeyCode.LeftShift)) {
 		
-			Time.timeScale = 3;
+			Time.timeScale = 10;
 		} else {
 		
 			Time.timeScale = 1;
@@ -105,12 +116,12 @@ public class MediatorScript : MonoBehaviour {
 		timeleftUI.text = Mathf.Floor(timeLeft/60.0f) + ":" + secondsPart;
 
 		if (gameStarted)
-			scoreUI.text = "Score: " + ((int)score);
+			scoreUI.text = "Score: " + GetScore ();
 		else
 			scoreUI.text = "";
 
-		gameOverScore.text = "Score: " + ((int)score) + "";
-		winScore.text = "Score: " + ((int)score) + "";
+		gameOverScore.text = "Score: " + GetScore () + "";
+		winScore.text = "Score: " + GetScore () + "";
 
 		powerFailureOverlay.SetActive (powerFailure);
 
@@ -153,9 +164,7 @@ public class MediatorScript : MonoBehaviour {
 		tutorialCounter = 0;
 		tutorial = true;
 
-		yield return new WaitForSeconds (1.5f);
-
-		ShowInstruction ("Show tutorial? (y or n)");
+		SetInstruction ("Show tutorial? (y or n)");
 
 		yield return new WaitUntil (() => (Input.GetKeyDown (KeyCode.Return) && (command.ToLower().Equals ("y") || command.ToLower().Equals ("n"))));
 
@@ -568,6 +577,9 @@ public class MediatorScript : MonoBehaviour {
 			}
 		}
 
+		if (highestTeam.bandwidth < 0.5f)
+			return;
+
 		StartCoroutine (TunnelAnim (highestTeam.transform));
 
 		SFXScript.Instance.PlayTransfer ();
@@ -704,11 +716,12 @@ public class MediatorScript : MonoBehaviour {
 
 	void AddScore() {
 
+		if (gameOver)
+			return;
+
 		score += teamA.Patience_Value / 100.0f;
 		score += teamB.Patience_Value / 100.0f;
 		score += teamC.Patience_Value / 100.0f;
-
-//		Debug.Log ("Score: " + score);
 	}
 
 	void GameOver() {
@@ -721,6 +734,8 @@ public class MediatorScript : MonoBehaviour {
 		usingHelp = false;
 		powerFailure = false;
 		gameOverOverlay.SetActive (true);
+
+		SetScore ();
 	}
 
 	void Win() {
@@ -732,11 +747,59 @@ public class MediatorScript : MonoBehaviour {
 		usingHelp = false;
 		powerFailure = false;
 		winOverlay.SetActive (true);
+
+		SetScore ();
 	}
 
 	void SetScore() {
 
+		if (saved)
+			return;
 
+		string scores = PlayerPrefs.GetString ("scores", "");
+
+		if (string.IsNullOrEmpty (scores)) {
+		
+			PlayerPrefs.SetString ("scores", ((int)(Mathf.Ceil(score))).ToString () + ",");
+		} else {
+		
+			string[] scoreStrings = scores.Split (',');
+			List<int> scoreValues = new List<int> ();
+
+			foreach(string s in scoreStrings) {
+
+				int output;
+
+				bool success = int.TryParse (s, out output);
+
+				if (success)
+					scoreValues.Add (output);
+				else
+					continue;
+
+				Debug.Log (output + " added");
+			}
+
+			scoreValues.Sort ();
+
+			while (scoreValues.Count >= 5) {
+			
+				scoreValues.RemoveAt (0);
+			}
+			
+			scoreValues.Add (GetScore());
+
+			scoreValues.Sort ();
+
+			string scoreData = "";
+
+			foreach (int i in scoreValues)
+				scoreData += i + ",";
+
+			PlayerPrefs.SetString ("scores", scoreData);
+		}
+
+		saved = true;
 	}
 
 	void TemporaryMessage(string temp) {
