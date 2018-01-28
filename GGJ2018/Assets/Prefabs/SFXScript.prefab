@@ -136,7 +136,6 @@ MonoBehaviour:
   click1: {fileID: 8300000, guid: d2b5279c70035a0458c2b0db91b86d2a, type: 3}
   click2: {fileID: 8300000, guid: 165ac77587018aa439849a9a6574b625, type: 3}
   click3: {fileID: 8300000, guid: 50fcd0ab9693b884598126efac89d0e3, type: 3}
-  dialUp: {fileID: 8300000, guid: 39667dc56c7e5e249a745cbaa1d177a2, type: 3}
   cling: {fileID: 8300000, guid: 88ce5eaa930e0d442b64eaf5cc8c6f13, type: 3}
   hit: {fileID: 8300000, guid: 493add02d495792468ff46a900729272, type: 3}
   alarm: {fileID: 8300000, guid: 99646e685023515468994929d218ee27, type: 3}

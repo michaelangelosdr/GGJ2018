@@ -18,6 +18,7 @@ public class BGMScript : MonoBehaviour {
 
 	public AudioClip MainMenuBGM;
 	public AudioClip GameBGM;
+	public AudioClip loseBGM;
 
 	float originalVolume;
 
@@ -52,8 +53,13 @@ public class BGMScript : MonoBehaviour {
 	}
 
 	public void PlayGameBGM() {
-	
+
 		PlayClip (GameBGM);
+	}
+
+	public void PlayLoseBGM() {
+
+		PlayClip (loseBGM);
 	}
 
 	public void Mute() {
@@ -64,5 +70,10 @@ public class BGMScript : MonoBehaviour {
 	public void Unmute() {
 
 		audioSource.volume = originalVolume;
+	}
+
+	public void Stop() {
+
+		audioSource.Stop ();
 	}
 }

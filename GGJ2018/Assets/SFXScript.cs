@@ -19,7 +19,6 @@ public class SFXScript : MonoBehaviour {
 	public AudioClip click1;
 	public AudioClip click2;
 	public AudioClip click3;
-	public AudioClip dialUp;
 	public AudioClip cling;
 	public AudioClip hit;
 	public AudioClip alarm;
@@ -76,11 +75,6 @@ public class SFXScript : MonoBehaviour {
 		PlayClip (alarm, 0.75f);
 	}
 
-	public void PlayDialUp() {
-
-		PlayClip (dialUp);
-	}
-
 	public void PlayTransfer() {
 
 		PlayClip (hit, 0.75f);
@@ -101,6 +95,11 @@ public class SFXScript : MonoBehaviour {
 	public void StopSpeech() {
 
 		audioSource.loop = false;
+		audioSource.Stop ();
+	}
+
+	public void Stop() {
+
 		audioSource.Stop ();
 	}
 }

@@ -67,10 +67,12 @@ public class MediatorScript : MonoBehaviour {
 
 	bool saved = false;
 
-	void Awake() {
+	void Start() {
 
 		if(BlackOverlay.Instance != null)
-		BlackOverlay.Instance.FadeOut ();
+			BlackOverlay.Instance.FadeOut ();
+
+		BGMScript.Instance.PlayGameBGM ();
 
 		timeLeft = baseTime;
 		score = 0;
@@ -735,8 +737,7 @@ public class MediatorScript : MonoBehaviour {
 
 		gameOver = true;
 
-		BGMScript.Instance.Mute ();
-		SFXScript.Instance.PlayDialUp ();
+		BGMScript.Instance.PlayLoseBGM ();
 
 		usingHelp = false;
 		powerFailure = false;

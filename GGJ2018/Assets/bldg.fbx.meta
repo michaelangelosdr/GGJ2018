@@ -1,0 +1,228 @@
+fileFormatVersion: 2
+guid: 44bdab63c09de2f4590c6b328af01c76
+timeCreated: 1517115315
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: pCube72
+    100004: pCube73
+    100006: pCube74
+    100008: pCube75
+    100010: pCube76
+    100012: pCube77
+    100014: pCube78
+    100016: pCube79
+    100018: pCube80
+    100020: pCube81
+    100022: pCube82
+    100024: pCube83
+    100026: pCube84
+    100028: pCube85
+    100030: pCube86
+    100032: pCube87
+    100034: pCube88
+    100036: pCube89
+    100038: pCube90
+    100040: pCube91
+    100042: pCube92
+    100044: pCube93
+    100046: pCube94
+    100048: pCube95
+    100050: pCube96
+    400000: //RootNode
+    400002: pCube72
+    400004: pCube73
+    400006: pCube74
+    400008: pCube75
+    400010: pCube76
+    400012: pCube77
+    400014: pCube78
+    400016: pCube79
+    400018: pCube80
+    400020: pCube81
+    400022: pCube82
+    400024: pCube83
+    400026: pCube84
+    400028: pCube85
+    400030: pCube86
+    400032: pCube87
+    400034: pCube88
+    400036: pCube89
+    400038: pCube90
+    400040: pCube91
+    400042: pCube92
+    400044: pCube93
+    400046: pCube94
+    400048: pCube95
+    400050: pCube96
+    2300000: pCube72
+    2300002: pCube73
+    2300004: pCube74
+    2300006: pCube75
+    2300008: pCube76
+    2300010: pCube77
+    2300012: pCube78
+    2300014: pCube79
+    2300016: pCube80
+    2300018: pCube81
+    2300020: pCube82
+    2300022: pCube83
+    2300024: pCube84
+    2300026: pCube85
+    2300028: pCube86
+    2300030: pCube87
+    2300032: pCube88
+    2300034: pCube89
+    2300036: pCube90
+    2300038: pCube91
+    2300040: pCube92
+    2300042: pCube93
+    2300044: pCube94
+    2300046: pCube95
+    2300048: pCube96
+    3300000: pCube72
+    3300002: pCube73
+    3300004: pCube74
+    3300006: pCube75
+    3300008: pCube76
+    3300010: pCube77
+    3300012: pCube78
+    3300014: pCube79
+    3300016: pCube80
+    3300018: pCube81
+    3300020: pCube82
+    3300022: pCube83
+    3300024: pCube84
+    3300026: pCube85
+    3300028: pCube86
+    3300030: pCube87
+    3300032: pCube88
+    3300034: pCube89
+    3300036: pCube90
+    3300038: pCube91
+    3300040: pCube92
+    3300042: pCube93
+    3300044: pCube94
+    3300046: pCube95
+    3300048: pCube96
+    4300000: pCube72
+    4300002: pCube73
+    4300004: pCube74
+    4300006: pCube75
+    4300008: pCube76
+    4300010: pCube77
+    4300012: pCube78
+    4300014: pCube79
+    4300016: pCube80
+    4300018: pCube81
+    4300020: pCube82
+    4300022: pCube83
+    4300024: pCube84
+    4300026: pCube90
+    4300028: pCube85
+    4300030: pCube86
+    4300032: pCube87
+    4300034: pCube88
+    4300036: pCube89
+    4300038: pCube96
+    4300040: pCube91
+    4300042: pCube92
+    4300044: pCube93
+    4300046: pCube94
+    4300048: pCube95
+    9500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 1c8d35077071f3e47a35f0842e063747, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert9
+    second: {fileID: 2100000, guid: 99f313726e4b89f45a82e552ee61a1e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: windows
+    second: {fileID: 2100000, guid: f38f63fc90b0de34d9ef6e7ef3301a09, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

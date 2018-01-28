@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c588409c8b974ca42b34c268ff039bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 82520128070200600}
   MainMenuBGM: {fileID: 0}
   GameBGM: {fileID: 0}
-  audioSource: {fileID: 82520128070200600}
+  loseBGM: {fileID: 8300000, guid: 39667dc56c7e5e249a745cbaa1d177a2, type: 3}
