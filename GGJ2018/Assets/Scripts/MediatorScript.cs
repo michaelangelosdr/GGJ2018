@@ -134,7 +134,7 @@ public class MediatorScript : MonoBehaviour {
 		else
 			consoleUI.text = "> _";
 
-		if (timeLeft < 0)
+		if (timeLeft <= 0)
 			Win ();
 		else if (teamA.Patience_Value <= 0 || teamB.Patience_Value <= 0 || teamC.Patience_Value <= 0) {
 		
