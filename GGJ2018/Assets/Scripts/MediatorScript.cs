@@ -233,6 +233,7 @@ public class MediatorScript : MonoBehaviour {
 
 			teamB.bandwidth += 0.5f;
 
+			SFXScript.Instance.PlayTransfer ();
 			MoveTrail (teamA.transform, tTran, trail1);
 
 			yield return new WaitForSeconds (1);
@@ -255,6 +256,7 @@ public class MediatorScript : MonoBehaviour {
 			teamB.bandwidth = 0.5f;
 			teamC.bandwidth = 1f;
 
+			SFXScript.Instance.PlayTransfer ();
 			MoveTrail (aTran, tTran, trail1);
 			MoveTrail (bTran, tTran, trail2);
 			MoveTrail (cTran, tTran, trail3);
@@ -289,6 +291,7 @@ public class MediatorScript : MonoBehaviour {
 			teamB.bandwidth = 0;
 			teamC.bandwidth = 0;
 
+			SFXScript.Instance.PlayTransfer ();
 			MoveTrail (aTran, tTran, trail1);
 			MoveTrail (bTran, tTran, trail2);
 			MoveTrail (cTran, tTran, trail3);
