@@ -12,7 +12,7 @@ public class MediatorScript : MonoBehaviour {
 	TeamScript receiverTeam;
 
 	public float baseTime;
-	public float timeLeft;
+	public static float timeLeft;
 	public float score;
 	float powerFailureInterval = 15;
 	float powerFailureChance = 20;
@@ -321,8 +321,8 @@ public class MediatorScript : MonoBehaviour {
 		command = "";
 
 		teamA.bandwidth = 1;
-		teamB.bandwidth = 0.5f;
-		teamC.bandwidth = 0.5f;
+		teamB.bandwidth = 1;
+		teamC.bandwidth = 0;
 
 		yield return MachineTyping ("Starting game in", 0.5f);
 
@@ -787,6 +787,7 @@ public class MediatorScript : MonoBehaviour {
 
 
 	public static int WatchingStates;
+	public static int StatesChange_Counter;
 	public static void LimitState()
 	{		
 		WatchingStates++;
