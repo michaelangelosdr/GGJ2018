@@ -50,8 +50,8 @@ public class MediatorScript : MonoBehaviour {
 	public bool usingHelp = false;
 	public RectTransform helpWindow;
 
-	Vector2 outPosition = new Vector2(-496, 0);
-	Vector2 inPosition = new Vector2(-1100, 0);
+	Vector2 outPosition = new Vector2(1, -11);
+	Vector2 inPosition = new Vector2(-1588, -11);
 
 	Vector2 currentPosition;
 
