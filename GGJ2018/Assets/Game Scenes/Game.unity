@@ -177,7 +177,6 @@ MonoBehaviour:
   winOverlay: {fileID: 262453452}
   gameOverScore: {fileID: 1407158919}
   winScore: {fileID: 426806357}
-  usingHelp: 0
   helpWindow: {fileID: 1489758503}
   trail1: {fileID: 2077941794}
   trail2: {fileID: 1465465405}
@@ -3308,7 +3307,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1166844727}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 

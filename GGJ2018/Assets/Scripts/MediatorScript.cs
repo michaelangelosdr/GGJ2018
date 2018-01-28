@@ -47,7 +47,7 @@ public class MediatorScript : MonoBehaviour {
 	public Text gameOverScore;
 	public Text winScore;
 
-	public bool usingHelp = false;
+	public static bool usingHelp = false;
 	public RectTransform helpWindow;
 
 	Vector2 outPosition = new Vector2(1, -11);
@@ -100,13 +100,13 @@ public class MediatorScript : MonoBehaviour {
 
 	void Update () {
 
-		if (Input.GetKey (KeyCode.LeftShift)) {
-		
-			Time.timeScale = 10;
-		} else {
-		
-			Time.timeScale = 1;
-		}
+//		if (Input.GetKey (KeyCode.LeftShift)) {
+//
+//			Time.timeScale = 10;
+//		} else {
+//		
+//			Time.timeScale = 1;
+//		}
 
 		ComputeBandwidth ();
 		HandleKeyInput ();
@@ -230,7 +230,7 @@ public class MediatorScript : MonoBehaviour {
 			//yield return MessageWithConfirmation ("'tunnel x' transmits bandwith to team x");
 			//yield return MessageWithConfirmation ("NOTE: Check to see how much you can give out.");
 			yield return MessageWithConfirmation ("Use tunnel [team letter] to transmit bandwith!");
-			yield return MachineTyping ("Team B needs bandwith!",0.5f);
+			yield return MachineTyping ("Team B needs bandwith!", 0.5f);
 			yield return MessageWithSpecificConfirmation ("Type 'tunnel b' to transmit some to team B.", "tunnel b");
 
 			teamB.bandwidth += 0.5f;
@@ -327,10 +327,13 @@ public class MediatorScript : MonoBehaviour {
 
 			yield return MachineTyping ("A few notes before we part:");
 			yield return MessageWithConfirmation ("Press the 'up arrow' to retype your last command.");
-			yield return MessageWithConfirmation ("Press 'tab' to bring out a cheat sheet.");
+			yield return MessageWithConfirmation ("Press 'tab' to bring out a cheat sheet. The game is paused while the sheet is out.");
 
 			yield return MachineTyping ("That's all, Make sure you transmit appropriately!");
-			yield return MessageWithConfirmation ("I'm gonna start the game now, okay? :D" );
+			yield return MessageWithConfirmation ("I'm gonna start the game now, okay? :D");
+		} else {
+
+			yield return MachineTyping ("NOTE: Press 'tab' to bring out a cheat sheet. The game is paused while the sheet is out.");
 		}
 
 		command = "";
@@ -432,14 +435,19 @@ public class MediatorScript : MonoBehaviour {
 	}
 
 	public void HelpPressed() {
-
+		
 		usingHelp = !usingHelp;
+
+		Debug.Log ("Help pressed! " + usingHelp);
 	}
 
 	void HandleKeyInput() {
 
-		if (usingHelp || gameOver)
+		if (usingHelp || gameOver) {
+		
+			Debug.Log (usingHelp);
 			return;
+		}
 
 		if (Input.GetKeyDown (KeyCode.UpArrow))
 			command = previousCommand;
@@ -657,7 +665,8 @@ public class MediatorScript : MonoBehaviour {
 
 		yield return new WaitForSeconds (0.25f);
 
-		MoveTrail (tTran, receiverTeam.transform, trail1);
+		if(receiverTeam)
+			MoveTrail (tTran, receiverTeam.transform, trail1);
 	}
 
 	void Restart() {
@@ -690,6 +699,8 @@ public class MediatorScript : MonoBehaviour {
 			
 			yield return new WaitForSeconds (1);
 
+			yield return new WaitUntil (() => !usingHelp);
+
 			timeLeft--;
 
 			AddScore ();
@@ -713,6 +724,8 @@ public class MediatorScript : MonoBehaviour {
 		while (timeLeft > 0 && !gameOver) {
 		
 			yield return new WaitForSeconds (powerFailureInterval);
+
+			yield return new WaitUntil (() => !usingHelp);
 
 			int rand = Random.Range (0, 101);
 

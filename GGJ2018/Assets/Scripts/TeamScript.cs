@@ -144,7 +144,7 @@ public class TeamScript : MonoBehaviour {
 		//else
 		//{
 
-		if (!MediatorScript.gameStarted)
+		if (!MediatorScript.gameStarted || MediatorScript.usingHelp)
 			return;
 
 		if (MediatorScript.powerFailure) {
@@ -254,10 +254,7 @@ public class TeamScript : MonoBehaviour {
 				} else if (MediatorScript.timeLeft < 165) {
 					MAX_INDEX = 4;
 				}
-
-
-			
-
+					
 				if (rand == 3 && MediatorScript.WatchingStates > 0) {
 					rand = Random.Range (0, 3);
 				} else if (rand == 3 && MediatorScript.WatchingStates <= 0) {
@@ -266,6 +263,8 @@ public class TeamScript : MonoBehaviour {
 			
 			}
 //			Debug.Log ("Chosen Random: " + rand);
+
+			yield return new WaitUntil (() => !MediatorScript.usingHelp);
 
 			foreach (Teamstate t in System.Enum.GetValues(typeof(Teamstate))) {
 			
@@ -283,6 +282,7 @@ public class TeamScript : MonoBehaviour {
 			Debug.Log (MediatorScript.StatesChange_Counter);
 			ShowChangeState ();
 			MediatorScript.ResetStates ();
+
 		}
 	}
 
