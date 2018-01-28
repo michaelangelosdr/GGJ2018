@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GGJSceneManager : MonoBehaviour {
-
-
-
+	
 	private static GGJSceneManager instance = null;
+
 	public static GGJSceneManager Instance
 	{
 		get {
@@ -17,8 +16,14 @@ public class GGJSceneManager : MonoBehaviour {
 		
 	void Awake()
 	{
-		instance = this;
-		DontDestroyOnLoad (this.gameObject);
+		if (!instance) {
+		
+			instance = this;
+			DontDestroyOnLoad (this.gameObject);
+		} else {
+		
+			Destroy (gameObject);
+		}
 	}
 
 
@@ -26,5 +31,4 @@ public class GGJSceneManager : MonoBehaviour {
 	{
 		SceneManager.LoadScene (SceneName);
 	}
-
 }
