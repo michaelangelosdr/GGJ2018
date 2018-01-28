@@ -30,8 +30,6 @@ public class Menu_Canvass_controller : MonoBehaviour {
 
 		yield return new WaitForSeconds (1);
 
-		BGMScript.Instance.PlayGameBGM ();
-
 		Scenemanager.LoadScene ("Game");
 	}
 

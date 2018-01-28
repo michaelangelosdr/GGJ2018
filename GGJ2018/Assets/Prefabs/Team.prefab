@@ -99,13 +99,15 @@ GameObject:
   m_Component:
   - component: {fileID: 4974457119492258}
   - component: {fileID: 212068882406975586}
+  - component: {fileID: 95301574897690208}
+  - component: {fileID: 114447839012160962}
   m_Layer: 0
   m_Name: Notif
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1518669407402414
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +501,23 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!95 &95301574897690208
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450651192089090}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6ae60d5ab710e7f428a77bf62908c65b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!102 &102177364734691524
 TextMesh:
   serializedVersion: 3
@@ -610,6 +629,18 @@ MonoBehaviour:
   loop: 1
   animationDuration: 1
   image: {fileID: 1760697512199224}
+--- !u!114 &114447839012160962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1450651192089090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e717b55d6b3e1418df23794eb00a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seconds: 1.5
 --- !u!114 &114923892636831268
 MonoBehaviour:
   m_ObjectHideFlags: 1
