@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -478,6 +479,9 @@ public class MediatorScript : MonoBehaviour {
 
 	void ParseData() {
 
+		Regex rgx = new Regex("\\s+");
+		command = rgx.Replace (command, " ");
+
 		string[] commandSplit = command.Split (null);
 
 		string action = commandSplit [0];
@@ -493,28 +497,28 @@ public class MediatorScript : MonoBehaviour {
 		if(commandSplit.Length > 1)
 			SetReceiverTeam (commandSplit [1].ToLower());
 	
-		if (action.Equals ("tunnel")) {
+		if (action.Contains ("tunnel")) {
 
 			if (powerFailure)
 				return;
 
 			if(receiverTeam)
 				Tunnel ();
-		} else if (action.Equals ("max")) {
+		} else if (action.Contains ("max")) {
 
 			if (powerFailure)
 				return;
 			
 			if (receiverTeam)
 				Maximum ();
-		} else if (action.Equals ("spread")) {
+		} else if (action.Contains ("spread")) {
 
 			if (powerFailure)
 				return;
 			
 			if (receiverTeam)
 				Spread ();
-		} else if (action.Equals ("restart")) {
+		} else if (action.Contains ("restart")) {
 
 			if(powerFailure)
 				Restart ();
