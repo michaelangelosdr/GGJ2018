@@ -13,7 +13,7 @@ public class CanvasController : MonoBehaviour {
 
 	void Update () {
 	
-		timeleftUI.text = "Time Left: " + ms.timeLeft + "s";
+		timeleftUI.text = "Time Left: " + MediatorScript.timeLeft + "s";
 		scoreUI.text = "Score: " + ((int)ms.score);
 
 		SetConsoleText ();
