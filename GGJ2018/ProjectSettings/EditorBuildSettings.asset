@@ -4,4 +4,16 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Game Scenes/GGJSplashScreen.unity
+    guid: 2c5cb3219f436dd438c95fb7227888b5
+  - enabled: 1
+    path: Assets/Game Scenes/Menu_scene.unity
+    guid: a4af29f8c23fe6248b56260c9dedbb80
+  - enabled: 1
+    path: Assets/Game Scenes/Game.unity
+    guid: 1ff4cdc0a3d237c4ca70a0a3cda550c7
+  - enabled: 1
+    path: Assets/Game Scenes/Game_Quick_Play.unity
+    guid: 1bb5ef31a552c364ca9dd658476ee1f8

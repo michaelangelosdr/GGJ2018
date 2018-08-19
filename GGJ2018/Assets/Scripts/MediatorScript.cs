@@ -412,11 +412,13 @@ public class MediatorScript : MonoBehaviour {
 		SFXScript.Instance.PlaySpeech ();
 
 		while(counter <= message.Length) {
-			
 
 			instructionUI.text = message.Substring (0, counter++);
 
-			yield return new WaitForSeconds (0.025f);
+			if (Input.GetKey (KeyCode.Return))
+				yield return new WaitForSeconds (0.00625f * 0.5f);
+			else
+				yield return new WaitForSeconds (0.00625f);
 		}
 
 		SFXScript.Instance.StopSpeech ();
@@ -778,6 +780,17 @@ public class MediatorScript : MonoBehaviour {
 			return;
 
 		string scores = PlayerPrefs.GetString ("scores", "");
+
+		/*
+		if (GameJolt.API.Manager.Instance.CurrentUser != null) {
+
+			Debug.Log ("Score added to gamejolt!");
+			GameJolt.API.Scores.Add (Mathf.CeilToInt (score), "Points");
+		} else {
+		
+			Debug.Log ("not signed in");
+		}
+		*/
 
 		if (string.IsNullOrEmpty (scores)) {
 		
